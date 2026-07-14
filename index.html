@@ -1,11 +1,403 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>SovereignAI Workshop 2026</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sovereign AI Workshop, HCOMP 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  /* ================================================================
+     Type system — two registers, no exceptions.
+     Serif  (Source Serif 4)  : structure — H1, H2, numerals, annotations
+     Sans   (Instrument Sans) : content — body, entry titles, UI, data
+     ================================================================ */
+  :root{
+    --navy:#0A2452;
+    --navy-deep:#071A3C;
+    --navy-soft:#0C2B61;
+    --ink:#171c28;
+    --muted:#596173;
+    --faint:#8a90a0;
+    --line:#e3e6ec;
+    --paper:#fefefd;
+    --paper-alt:#f4f6fa;
+    --serif:'Source Serif 4',Georgia,serif;
+    --sans:'Instrument Sans',system-ui,sans-serif;
+    --sidebar-w:264px;
+    --max:760px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  ::selection{background:var(--navy);color:#fff}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:var(--sans);
+    font-size:15.5px;line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{transition:color .22s cubic-bezier(.16,1,.3,1)}
+  a:focus-visible{outline:2px solid var(--navy);outline-offset:3px}
+  .sidebar a:focus-visible{outline-color:#fff}
+
+  h1,h2{font-family:var(--serif)}
+
+  /* annotation register — always serif italic, oldstyle figures */
+  .n,.num,.dates-note{
+    font-family:var(--serif);font-style:italic;
+    font-variant-numeric:oldstyle-nums;
+  }
+
+  /* small-caps label register — one style everywhere */
+  .eyebrow,.sidebar .tag,.facts dt{
+    font-family:var(--sans);font-weight:500;
+    font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;
+  }
+
+  .layout{display:flex;min-height:100dvh}
+
+  /* ---------------- Sidebar ---------------- */
+  .sidebar{
+    width:var(--sidebar-w);flex-shrink:0;color:#fff;
+    background:
+      radial-gradient(120% 60% at 0% 0%, rgba(41,78,152,0.5), transparent 55%),
+      linear-gradient(172deg, var(--navy-soft) 0%, var(--navy) 45%, var(--navy-deep) 100%);
+    box-shadow:inset -1px 0 0 rgba(255,255,255,0.06);
+    position:sticky;top:0;height:100dvh;padding:44px 36px 40px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .brand .mark-shape{display:block;margin-bottom:22px;opacity:.85}
+  .brand .mark{
+    font-family:var(--serif);font-weight:480;font-size:21px;line-height:1.25;
+    letter-spacing:.002em;white-space:nowrap;margin-bottom:7px;
+  }
+  .sidebar .tag{color:rgba(255,255,255,0.48)}
+
+  .sidebar nav{margin-top:56px;display:flex;flex-direction:column}
+  .sidebar nav a{
+    color:rgba(255,255,255,0.62);text-decoration:none;
+    font-size:13.5px;font-weight:450;letter-spacing:.008em;
+    display:grid;grid-template-columns:26px 1fr;align-items:baseline;
+    padding:8px 0 8px 17px;margin-left:-18px;
+    border-left:1px solid transparent;
+    transition:color .22s cubic-bezier(.16,1,.3,1),border-color .22s cubic-bezier(.16,1,.3,1);
+  }
+  .sidebar nav a .n{font-size:13px;color:rgba(255,255,255,0.34);transition:color .22s}
+  .sidebar nav a:hover{color:#fff;border-left-color:rgba(255,255,255,0.3)}
+  .sidebar nav a:hover .n{color:rgba(255,255,255,0.6)}
+  .sidebar nav a.active{color:#fff;border-left-color:#fff}
+  .sidebar nav a.active .n{color:rgba(255,255,255,0.85)}
+
+  .side-foot{display:flex;flex-direction:column;gap:26px}
+  .side-cta{
+    display:flex;justify-content:space-between;align-items:center;
+    text-decoration:none;color:#fff;
+    font-size:13px;font-weight:500;letter-spacing:.01em;
+    border:1px solid rgba(255,255,255,0.28);
+    padding:11px 15px;border-radius:2px;
+    transition:background-color .25s cubic-bezier(.16,1,.3,1),color .25s,border-color .25s;
+  }
+  .side-cta .arr{transition:transform .25s cubic-bezier(.16,1,.3,1)}
+  .side-cta:hover{background:#fff;color:var(--navy);border-color:#fff}
+  .side-cta:hover .arr{transform:translateX(3px)}
+  .side-cta:active{transform:translateY(1px)}
+
+  .facts{border-top:1px solid rgba(255,255,255,0.14);padding-top:22px}
+  .facts .fact{margin-bottom:15px}
+  .facts .fact:last-child{margin-bottom:0}
+  .facts dt{color:rgba(255,255,255,0.42);margin-bottom:2px}
+  .facts dd{
+    font-size:13px;font-weight:450;color:rgba(255,255,255,0.88);
+    line-height:1.5;
+  }
+
+  /* ---------------- Content ---------------- */
+  .content{flex:1;min-width:0}
+  .hero{padding:96px 64px 72px;max-width:var(--max)}
+  .eyebrow{color:var(--faint);margin-bottom:24px;display:block}
+  .hero h1{
+    font-weight:560;font-size:clamp(31px,4vw,43px);line-height:1.3;
+    letter-spacing:-.012em;text-wrap:balance;
+    margin-bottom:26px;color:var(--navy);
+    font-variant-numeric:oldstyle-nums;
+  }
+  .hero .sub{color:var(--muted);font-size:16.5px;line-height:1.8;max-width:58ch;text-wrap:pretty}
+
+  section{padding:68px 64px;max-width:var(--max);border-top:1px solid var(--line);scroll-margin-top:0}
+
+  .section-head{display:flex;align-items:baseline;gap:15px;margin-bottom:28px}
+  .section-head .n{color:var(--faint);font-size:15px;flex:0 0 auto}
+  h2{font-size:25px;font-weight:560;letter-spacing:-.008em;color:var(--navy)}
+  .lede{color:var(--muted);font-size:15.5px;max-width:60ch;margin-bottom:20px;text-wrap:pretty}
+
+  /* topic entries — sans titles under serif structure */
+  .entry{display:grid;grid-template-columns:46px 1fr;gap:18px;padding:25px 0;border-top:1px solid var(--line)}
+  .lede + .entry{border-top:none;padding-top:8px}
+  .entry .num{color:var(--navy);font-size:15px;padding-top:1px}
+  .entry h3{
+    font-family:var(--sans);font-size:15.5px;font-weight:600;letter-spacing:-.008em;
+    margin-bottom:7px;color:var(--ink);text-wrap:balance;
+  }
+  .entry p{color:var(--muted);font-size:14.5px;line-height:1.75;max-width:58ch}
+
+  .cfp p{color:var(--ink);font-size:15.5px;max-width:62ch;margin-bottom:18px;text-wrap:pretty}
+  .cfp strong{font-weight:700;color:var(--navy)}
+
+  /* CFP tracks — short blocks instead of one long paragraph */
+  .cfp-tracks{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:24px 28px;margin:28px 0 32px}
+  .cfp-track h4{font-family:var(--sans);font-size:13.5px;font-weight:600;letter-spacing:-.005em;color:var(--navy);margin-bottom:6px}
+  .cfp-track p{color:var(--muted);font-size:13.5px;line-height:1.65;margin-bottom:0;max-width:32ch}
+
+  .cfp-submissions{margin:28px 0}
+
+  table.dates{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px}
+  table.dates tr+tr td{border-top:1px solid var(--line)}
+  table.dates td{padding:13px 0;color:var(--ink);font-variant-numeric:tabular-nums}
+  table.dates td:first-child{
+    width:230px;color:var(--muted);
+    font-family:var(--serif);font-style:italic;font-variant-numeric:oldstyle-nums;
+    font-size:14.5px;
+  }
+  table.dates tr.key td{color:var(--navy)}
+  table.dates tr.key td:first-child{color:var(--navy);font-style:normal;font-weight:600}
+  table.dates tr.key td:last-child{font-weight:700;font-size:15px}
+  .dates-note{font-size:13px;color:var(--faint);margin-top:14px}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    margin-top:30px;padding:13px 26px;background:var(--navy);color:#fff;
+    text-decoration:none;font-size:13.5px;font-weight:500;letter-spacing:.015em;
+    border-radius:2px;
+    transition:background-color .25s cubic-bezier(.16,1,.3,1);
+  }
+  .btn .arr{transition:transform .25s cubic-bezier(.16,1,.3,1)}
+  .btn:hover{background:var(--navy-deep)}
+  .btn:hover .arr{transform:translateX(3px)}
+  .btn:active{transform:translateY(1px)}
+
+  /* organizers — elevated panel: the formal roster of record */
+  .organizers-panel{
+    background:
+      radial-gradient(140% 100% at 0% 0%, rgba(10,36,82,0.05), transparent 60%),
+      var(--paper-alt);
+    border-left:2px solid var(--navy);
+    padding:38px 40px;
+  }
+  /* roster breaks the reading measure — it is a table, not prose;
+     the section itself still opens with a divider the same length as every other section's */
+  #organizers{max-width:940px;border-top:none;padding-top:0}
+  #organizers::before{content:"";display:block;width:var(--max);max-width:100%;border-top:1px solid var(--line);padding-top:68px}
+  .organizers-grid{display:grid;grid-template-columns:1fr 1fr}
+  .organizer{
+    display:flex;gap:22px;align-items:flex-start;
+    padding-right:44px;position:relative;
+  }
+  .organizer:not(:first-child){padding-right:0;padding-left:44px}
+  .organizer:not(:first-child)::before{
+    content:"";position:absolute;left:0;top:8px;bottom:8px;width:1px;
+    background:var(--line);
+  }
+  .organizer .photo{
+    flex:none;margin-top:2px;
+    width:88px;height:88px;border-radius:50%;
+    background:var(--navy);
+    background-size:cover;background-position:center;
+    box-shadow:0 0 0 1px rgba(10,36,82,0.1), inset 0 0 0 2px rgba(255,255,255,0.14);
+  }
+  .organizer .id{padding-top:6px}
+  .organizer h3{font-family:var(--sans);font-size:15.5px;font-weight:600;letter-spacing:-.008em;color:var(--ink);line-height:1.35}
+  .organizer .role{color:var(--muted);font-size:13px;margin-top:6px;line-height:1.6}
+  .organizer .mail{display:inline-block;margin-top:9px;font-size:12.5px;color:var(--navy);text-underline-offset:3px}
+  .organizer .mail:hover{text-decoration:none}
+
+  /* workshop team — a lighter, quieter roll call beneath the panel */
+  .team-block{margin-top:40px;max-width:600px}
+  .team-eyebrow{
+    display:block;color:var(--faint);margin-bottom:14px;
+    font-family:var(--sans);font-weight:500;
+    font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;
+  }
+  .team-list{color:var(--faint);font-size:13.5px;line-height:2}
+  .team-list strong{color:var(--muted);font-weight:600}
+
+  footer{padding:24px 64px 32px;max-width:var(--max);color:var(--faint);font-size:13px;border-top:1px solid var(--line);margin-top:12px}
+  footer a{color:var(--muted);text-underline-offset:3px}
+  footer a:hover{color:var(--navy)}
+
+  @media (min-width:1240px){
+    .hero,section,footer{margin-left:6vw}
+  }
+
+  @media (max-width:860px){
+    .layout{flex-direction:column}
+    .sidebar{width:100%;height:auto;position:relative;padding:28px 32px}
+    .sidebar nav{flex-direction:row;flex-wrap:wrap;margin-top:22px;gap:2px 18px}
+    .sidebar nav a{margin-left:0;padding:6px 0;border-left:none}
+    .sidebar nav a.active{border-left:none}
+    .side-foot{margin-top:24px;gap:18px}
+    .facts{display:flex;gap:8px 30px;flex-wrap:wrap}
+    .facts .fact{margin-bottom:0}
+    .hero,section,footer{padding-left:32px;padding-right:32px}
+    .hero{padding-top:64px}
+    .entry{grid-template-columns:1fr;gap:6px}
+    .organizers-grid{grid-template-columns:1fr;row-gap:32px}
+    .organizer,.organizer:not(:first-child){padding-left:0;padding-right:0}
+    .organizer:not(:first-child)::before{display:none}
+  }
+</style>
 </head>
 <body>
-  <h1>SovereignAI Workshop 2026</h1>
-  <p>Coming soon.</p>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div>
+      <div class="brand">
+        <svg class="mark-shape" width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <circle cx="20" cy="20" r="19" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+          <ellipse cx="20" cy="20" rx="9" ry="19" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+          <line x1="1" y1="20" x2="39" y2="20" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+        </svg>
+        <div class="mark">Sovereign AI</div>
+        <div class="tag">Workshop &middot; HCOMP 2026</div>
+      </div>
+      <nav aria-label="Sections">
+        <a href="#overview"><span class="n">i.</span>Overview</a>
+        <a href="#topics"><span class="n">ii.</span>Topics of interest</a>
+        <a href="#cfp"><span class="n">iii.</span>Call for papers</a>
+        <a href="#organizers"><span class="n">iv.</span>Organizers</a>
+      </nav>
+    </div>
+    <div class="side-foot">
+      <a class="side-cta" href="#cfp">Submit a paper <span class="arr">&rarr;</span></a>
+      <dl class="facts">
+        <div class="fact"><dt>Date</dt><dd>September 27, 2026</dd></div>
+        <div class="fact"><dt>Location</dt><dd>Virginia Tech, near Washington, DC</dd></div>
+        <div class="fact"><dt>Format</dt><dd>In-person</dd></div>
+      </dl>
+    </div>
+  </aside>
+
+  <div class="content">
+    <div class="hero">
+      <span class="eyebrow">Full-day workshop</span>
+      <h1>The First Workshop on Sovereign AI for Collaborative and Pluralistic AI Ecosystems</h1>
+      <p class="sub">Examining how AI systems that claim to serve local law, language, culture, and the public interest can remain accountable while depending on global models, data, compute, and institutions.</p>
+    </div>
+
+    <section id="overview">
+      <div class="section-head"><span class="n">i.</span><h2>Overview</h2></div>
+      <p class="lede">As AI systems become increasingly central to how societies make decisions, questions of sovereignty, autonomy, and pluralism become urgent. This workshop convenes researchers, practitioners, and policymakers to examine how AI ecosystems can be designed to preserve individual and collective agency, support diverse values, and enable collaborative governance rather than centralized control.</p>
+    </section>
+
+    <section id="topics">
+      <div class="section-head"><span class="n">ii.</span><h2>Topics of Interest</h2></div>
+      <p class="lede">We invite contributions across five broad themes, each welcoming technical, design, and policy perspectives; evaluation, benchmarking, and human-centered evidence cut across all of them.</p>
+
+      <div class="entry"><div class="num">01</div><div><h3>Safety, Alignment, and Management of Agentic and Physical AI</h3><p>Autonomy, embodiment, multimodality, safety evaluation, and meaningful human control.</p></div></div>
+      <div class="entry"><div class="num">02</div><div><h3>Human Oversight, Agency, and Trustworthy AI Interaction</h3><p>Delegation, trust calibration, usable privacy and transparency, intervention, and recovery.</p></div></div>
+      <div class="entry"><div class="num">03</div><div><h3>Open Models, Data Governance, and Resilient AI Deployment</h3><p>Open-weight and foundation models, local adaptation, data access and quality, evaluation benchmarks, compute/API dependencies, portability, and continuity of service.</p></div></div>
+      <div class="entry"><div class="num">04</div><div><h3>Language, Culture, and Civic AI for the Public Interest</h3><p>Local-language and culturally grounded AI, cultural representation, participatory design, public services, and media literacy.</p></div></div>
+      <div class="entry"><div class="num">05</div><div><h3>Democratic Resilience and Multi-Stakeholder AI Governance</h3><p>Public accountability, agile regulatory design, institutional coordination, deliberation, and co-governance.</p></div></div>
+    </section>
+
+    <section id="cfp" class="cfp">
+      <div class="section-head"><span class="n">iii.</span><h2>Call for Papers</h2></div>
+      <p>Sovereign AI invites researchers and practitioners to treat sovereign AI as a human-AI complementarity, interaction, and governance problem: when AI systems claim to serve local law, language, culture, and the public interest while depending on global models, data, compute, and institutions, how should they be built, used, evaluated, and governed?</p>
+
+      <p>Building on the five themes above, we welcome work from:</p>
+      <div class="cfp-tracks">
+        <div class="cfp-track">
+          <h4>AI / ML &amp; Industry</h4>
+          <p>Safety, alignment, control, open models, data governance, evaluation, and resilient deployment.</p>
+        </div>
+        <div class="cfp-track">
+          <h4>HCI, Design &amp; Social Computing</h4>
+          <p>Oversight, agency, trust calibration, usable privacy, participatory design, and civic AI.</p>
+        </div>
+        <div class="cfp-track">
+          <h4>Law, Policy &amp; Civil Society</h4>
+          <p>Democratic resilience, public-interest AI, agile governance, and multi-stakeholder coordination.</p>
+        </div>
+      </div>
+
+      <p class="cfp-submissions"><strong>Submissions:</strong> We welcome <strong>full papers, work-in-progress, position papers, surveys, demos, or deployment case studies</strong> that surface real dilemmas and failures. Accepted work will be presented as a talk or interactive poster/demo and will feed into the cross-disciplinary team outputs.</p>
+
+      <table class="dates">
+        <tr class="key"><td>Paper submission deadline</td><td><strong>July 30, 2026</strong></td></tr>
+        <tr><td>Acceptance notification</td><td>August 7, 2026</td></tr>
+        <tr><td>Workshop day</td><td>September 27, 2026</td></tr>
+      </table>
+      <p class="dates-note">All deadlines are 11:59&#8202;pm, Anywhere on Earth (AoE).</p>
+      <a class="btn" href="#">Submit via Google Form (link TBD) <span class="arr">&rarr;</span></a>
+    </section>
+
+    <section id="organizers">
+      <div class="section-head"><span class="n">iv.</span><h2>Organizers</h2></div>
+
+      <div class="organizers-panel">
+        <div class="organizers-grid">
+          <div class="organizer">
+            <div class="photo" style="background-image:url('Ku.JPG');background-position:center top"></div>
+            <div class="id">
+              <h3>Dr. Lun-Wei Ku</h3>
+              <p class="role">Research Fellow, Institute of Information Science, Academia Sinica, Taiwan</p>
+              <a class="mail" href="mailto:lwku@iis.sinica.edu.tw">lwku@iis.sinica.edu.tw</a>
+            </div>
+          </div>
+          <div class="organizer">
+            <div class="photo" style="background-image:url('Wu.JPG');background-position:center -10px"></div>
+            <div class="id">
+              <h3>Wan-Jhen (Crystal) Wu</h3>
+              <p class="role">Technical Program Manager, Taiwan Public Media NewsLLM Project, Academia Sinica, Taiwan</p>
+              <a class="mail" href="mailto:apokoios@as.edu.tw">apokoios@as.edu.tw</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block">
+        <span class="team-eyebrow">Workshop team, Academia Sinica</span>
+        <p class="team-list">
+          <strong>Teressa Copple</strong> (web design) &middot; Research Intern
+        </p>
+      </div>
+    </section>
+
+    <footer>Sovereign AI Workshop &middot; Co-located with <a href="https://hcomp.acm.org/2026/">HCOMP 2026</a></footer>
+  </div>
+</div>
+
+<script>
+  // scrollspy — exactly one active link: the first visible section in document order
+  (function(){
+    var map = {};
+    document.querySelectorAll('.sidebar nav a').forEach(function(a){
+      map[a.getAttribute('href').slice(1)] = a;
+    });
+    var sections = Array.prototype.slice.call(document.querySelectorAll('section[id]'));
+    var visible = {}, current = null;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ visible[e.target.id] = e.isIntersecting; });
+      var first = null;
+      for(var i=0;i<sections.length;i++){ if(visible[sections[i].id]){ first = sections[i].id; break; } }
+      if(first === current) return;              // nothing changed — skip the DOM writes
+      if(map[current]) map[current].classList.remove('active');
+      current = first;
+      if(map[current]) map[current].classList.add('active');
+    },{rootMargin:'-25% 0px -60% 0px'});
+    sections.forEach(function(s){ io.observe(s); });
+  })();
+
+  // placeholder links (href="#") — no jump-to-top, just drop focus
+  document.querySelectorAll('a[href="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      a.blur();
+    });
+  });
+</script>
+
 </body>
 </html>
