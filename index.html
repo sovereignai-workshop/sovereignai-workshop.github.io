@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sovereign AI Workshop, HCOMP 2026</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%20viewBox='0%200%2040%2040'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='40'%20y2='40'%20gradientUnits='userSpaceOnUse'%3E%3Cstop%20offset='0'%20stop-color='%230C2B61'/%3E%3Cstop%20offset='1'%20stop-color='%23071A3C'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg%20stroke='url(%23g)'%20stroke-width='2.6'%20fill='none'%3E%3Ccircle%20cx='20'%20cy='20'%20r='17.4'/%3E%3Cellipse%20cx='20'%20cy='20'%20rx='8.4'%20ry='17.4'/%3E%3Cpath%20d='M2.6%2020h34.8'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&display=swap" rel="stylesheet">
@@ -140,17 +141,39 @@
     font-family:var(--sans);font-size:15.5px;font-weight:600;letter-spacing:-.008em;
     margin-bottom:7px;color:var(--ink);text-wrap:balance;
   }
-  .entry p{color:var(--muted);font-size:14.5px;line-height:1.75;max-width:58ch}
+  /* Measure is set by the grid column, not by `ch` — `ch` is font-relative, so the
+     same value on 14.5px sans and 13.5px serif italic wraps at different widths. */
+  .entry p{color:var(--muted);font-size:14.5px;line-height:1.75}
+  /* example questions — annotation register: an aside, not a requirement */
+  .entry .eg{
+    font-family:var(--serif);font-style:italic;
+    color:var(--faint);font-size:13.5px;line-height:1.75;
+    margin-top:8px;
+  }
+  .entry .eg .lbl{color:var(--muted)}
+  .topics-note{
+    font-family:var(--serif);font-style:italic;
+    color:var(--faint);font-size:13.5px;line-height:1.75;
+    margin:30px 0 0;
+  }
 
   .cfp p{color:var(--ink);font-size:15.5px;max-width:62ch;margin-bottom:18px;text-wrap:pretty}
   .cfp strong{font-weight:700;color:var(--navy)}
+  .cfp p a{color:var(--navy);text-underline-offset:3px}
+  .cfp p a:hover{text-decoration:none}
 
-  /* CFP tracks — short blocks instead of one long paragraph */
-  .cfp-tracks{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:24px 28px;margin:28px 0 32px}
-  .cfp-track h4{font-family:var(--sans);font-size:13.5px;font-weight:600;letter-spacing:-.005em;color:var(--navy);margin-bottom:6px}
+  /* CFP tracks — three parallel disciplines, side by side */
+  .cfp-tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:28px 0 32px}
+  /* reserve two title lines so every description starts on the same baseline */
+  .cfp-track h4{
+    font-family:var(--sans);font-size:13.5px;font-weight:600;letter-spacing:-.005em;
+    color:var(--navy);line-height:1.45;min-height:2.9em;margin-bottom:6px;
+  }
   .cfp-track p{color:var(--muted);font-size:13.5px;line-height:1.65;margin-bottom:0;max-width:32ch}
 
   .cfp-submissions{margin:28px 0}
+  .cfp-submissions p{margin-bottom:12px}
+  .cfp-submissions p:last-child{margin-bottom:0}
 
   table.dates{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px}
   table.dates tr+tr td{border-top:1px solid var(--line)}
@@ -242,6 +265,8 @@
     .hero,section,footer{padding-left:32px;padding-right:32px}
     .hero{padding-top:64px}
     .entry{grid-template-columns:1fr;gap:6px}
+    .cfp-tracks{grid-template-columns:1fr}
+    .cfp-track h4{min-height:0}
     .organizers-grid{grid-template-columns:1fr;row-gap:32px}
     .organizer,.organizer:not(:first-child){padding-left:0;padding-right:0}
     .organizer:not(:first-child)::before{display:none}
@@ -295,11 +320,33 @@
       <div class="section-head"><span class="n">ii.</span><h2>Topics of Interest</h2></div>
       <p class="lede">We invite contributions across five broad themes, each welcoming technical, design, and policy perspectives; evaluation, benchmarking, and human-centered evidence cut across all of them.</p>
 
-      <div class="entry"><div class="num">01</div><div><h3>Safety, Alignment, and Management of Agentic and Physical AI</h3><p>Autonomy, embodiment, multimodality, safety evaluation, and meaningful human control.</p></div></div>
-      <div class="entry"><div class="num">02</div><div><h3>Human Oversight, Agency, and Trustworthy AI Interaction</h3><p>Delegation, trust calibration, usable privacy and transparency, intervention, and recovery.</p></div></div>
-      <div class="entry"><div class="num">03</div><div><h3>Open Models, Data Governance, and Resilient AI Deployment</h3><p>Open-weight and foundation models, local adaptation, data access and quality, evaluation benchmarks, compute/API dependencies, portability, and continuity of service.</p></div></div>
-      <div class="entry"><div class="num">04</div><div><h3>Language, Culture, and Civic AI for the Public Interest</h3><p>Local-language and culturally grounded AI, cultural representation, participatory design, public services, and media literacy.</p></div></div>
-      <div class="entry"><div class="num">05</div><div><h3>Democratic Resilience and Multi-Stakeholder AI Governance</h3><p>Public accountability, agile regulatory design, institutional coordination, deliberation, and co-governance.</p></div></div>
+      <div class="entry"><div class="num">01</div><div>
+        <h3>Safety, Alignment, and Management of Agentic and Physical AI</h3>
+        <p>Autonomy, embodiment, multimodality, safety evaluation, and meaningful human control.</p>
+        <p class="eg"><span class="lbl">Example question —</span> How do we ensure that increasingly autonomous and embodied AI systems remain safe, aligned, and under meaningful human control?</p>
+      </div></div>
+      <div class="entry"><div class="num">02</div><div>
+        <h3>Human Oversight, Agency, and Trustworthy AI Interaction</h3>
+        <p>Delegation, trust calibration, usable privacy and transparency, intervention, and recovery.</p>
+        <p class="eg"><span class="lbl">Example question —</span> How can people effectively understand, oversee, and intervene in AI systems without losing their own agency?</p>
+      </div></div>
+      <div class="entry"><div class="num">03</div><div>
+        <h3>Open Models, Data Governance, and Resilient AI Deployment</h3>
+        <p>Open-weight and foundation models, local adaptation, data access and quality, evaluation benchmarks, compute/API dependencies, portability, and continuity of service.</p>
+        <p class="eg"><span class="lbl">Example question —</span> How can we build open and adaptable AI systems that remain reliable without depending entirely on a few models, datasets, or service providers?</p>
+      </div></div>
+      <div class="entry"><div class="num">04</div><div>
+        <h3>Language, Culture, and Civic AI for the Public Interest</h3>
+        <p>Local-language and culturally grounded AI, cultural representation, participatory design, public services, and media literacy.</p>
+        <p class="eg"><span class="lbl">Example question —</span> How can people from different technical, cultural, and professional backgrounds help build AI that better serves diverse languages, communities, and public needs?</p>
+      </div></div>
+      <div class="entry"><div class="num">05</div><div>
+        <h3>Democratic Resilience and Multi-Stakeholder AI Governance</h3>
+        <p>Public accountability, agile regulatory design, institutional coordination, deliberation, and co-governance.</p>
+        <p class="eg"><span class="lbl">Example question —</span> How can governments, researchers, industry, and the public meaningfully participate in governing AI and holding it accountable?</p>
+      </div></div>
+
+      <p class="topics-note">The list above is illustrative, not exhaustive. We welcome any work relevant to sovereign, collaborative, and pluralistic AI.</p>
     </section>
 
     <section id="cfp" class="cfp">
@@ -322,7 +369,12 @@
         </div>
       </div>
 
-      <p class="cfp-submissions"><strong>Submissions:</strong> We welcome <strong>full papers, work-in-progress, position papers, surveys, demos, or deployment case studies</strong> that surface real dilemmas and failures. Accepted work will be presented as a talk or interactive poster/demo and will feed into the cross-disciplinary team outputs.</p>
+      <div class="cfp-submissions">
+        <p><strong>Submissions:</strong> We welcome <strong>full papers, work-in-progress papers, position papers, surveys, system demonstrations, and deployment case studies</strong> that surface real dilemmas and failures.</p>
+        <p>Full papers may be <strong>up to 6000 words (excluding references)</strong>, while all other submission types should be <strong>2&ndash;4 pages (excluding references)</strong> using the ACM conference format.</p>
+        <p>Accepted submissions will be presented as talks, posters, or interactive demonstrations and will contribute to the workshop&rsquo;s cross-disciplinary discussions and collaborative outcomes.</p>
+        <p>See <a href="https://hcomp.acm.org/2026/submit.html#general">General Submission Instructions</a> for the official ACM templates and formatting policies.</p>
+      </div>
 
       <table class="dates">
         <tr class="key"><td>Paper submission deadline</td><td><strong>July 31, 2026</strong></td></tr>
