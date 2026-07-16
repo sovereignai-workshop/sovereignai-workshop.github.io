@@ -10,9 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&display=swap" rel="stylesheet">
 <style>
   /* ================================================================
-     Type system — two registers, no exceptions.
-     Serif  (Source Serif 4)  : structure — H1, H2, numerals, annotations
-     Sans   (Instrument Sans) : content — body, entry titles, UI, data
+     Type system - two registers, no exceptions.
+     Serif  (Source Serif 4)  : structure - H1, H2, numerals, annotations
+     Sans   (Instrument Sans) : content - body, entry titles, UI, data
      ================================================================ */
   :root{
     --navy:#0A2452;
@@ -45,13 +45,13 @@
 
   h1,h2{font-family:var(--serif)}
 
-  /* annotation register — always serif italic, oldstyle figures */
+  /* annotation register - always serif italic, oldstyle figures */
   .n,.num,.dates-note{
     font-family:var(--serif);font-style:italic;
     font-variant-numeric:oldstyle-nums;
   }
 
-  /* small-caps label register — one style everywhere */
+  /* small-caps label register - one style everywhere */
   .eyebrow,.sidebar .tag,.facts dt{
     font-family:var(--sans);font-weight:500;
     font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;
@@ -133,7 +133,7 @@
   h2{font-size:25px;font-weight:560;letter-spacing:-.008em;color:var(--navy)}
   .lede{color:var(--muted);font-size:15.5px;max-width:60ch;margin-bottom:20px;text-wrap:pretty}
 
-  /* topic entries — sans titles under serif structure */
+  /* topic entries - sans titles under serif structure */
   .entry{display:grid;grid-template-columns:46px 1fr;gap:18px;padding:25px 0;border-top:1px solid var(--line)}
   .lede + .entry{border-top:none;padding-top:8px}
   .entry .num{color:var(--navy);font-size:15px;padding-top:1px}
@@ -141,10 +141,10 @@
     font-family:var(--sans);font-size:15.5px;font-weight:600;letter-spacing:-.008em;
     margin-bottom:7px;color:var(--ink);text-wrap:balance;
   }
-  /* Measure is set by the grid column, not by `ch` — `ch` is font-relative, so the
+  /* Measure is set by the grid column, not by `ch` - `ch` is font-relative, so the
      same value on 14.5px sans and 13.5px serif italic wraps at different widths. */
   .entry p{color:var(--muted);font-size:14.5px;line-height:1.75}
-  /* example questions — annotation register: an aside, not a requirement */
+  /* example questions - annotation register: an aside, not a requirement */
   .entry .eg{
     font-family:var(--serif);font-style:italic;
     color:var(--faint);font-size:13.5px;line-height:1.75;
@@ -162,7 +162,7 @@
   .cfp p a{color:var(--navy);text-underline-offset:3px}
   .cfp p a:hover{text-decoration:none}
 
-  /* CFP tracks — three parallel disciplines, side by side */
+  /* CFP tracks - three parallel disciplines, side by side */
   .cfp-tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:28px 0 32px}
   /* reserve two title lines so every description starts on the same baseline */
   .cfp-track h4{
@@ -200,7 +200,35 @@
   .btn:hover .arr{transform:translateX(3px)}
   .btn:active{transform:translateY(1px)}
 
-  /* organizers — elevated panel: the formal roster of record */
+  /* schedule - grouped by the natural lunch break for faster scanning */
+  .schedule-intro{margin-bottom:34px}
+  .schedule-groups{display:grid;grid-template-columns:1fr 1fr;gap:46px}
+  .schedule-group h3{
+    font-family:var(--sans);font-size:11px;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--navy);
+    padding-bottom:12px;border-bottom:1px solid var(--navy);
+  }
+  .schedule-item{
+    display:grid;grid-template-columns:112px minmax(0,1fr);gap:18px;
+    padding:18px 0;border-bottom:1px solid var(--line);
+  }
+  .schedule-time{
+    font-family:var(--serif);font-style:italic;font-size:14px;
+    font-variant-numeric:oldstyle-nums;color:var(--navy);white-space:nowrap;
+  }
+  .schedule-title{font-size:14px;font-weight:600;line-height:1.45;color:var(--ink)}
+  .schedule-detail{margin-top:3px;color:var(--muted);font-size:12.5px;line-height:1.55}
+  .schedule-item.break .schedule-title{font-weight:450;color:var(--muted)}
+  .interest{
+    margin-top:38px;padding:24px 28px;background:var(--paper-alt);
+    border-left:2px solid var(--navy);
+  }
+  .interest h3{font-family:var(--sans);font-size:15px;font-weight:600;color:var(--navy)}
+  .interest p{margin-top:6px;color:var(--muted);font-size:13.5px;max-width:56ch}
+  .interest .btn{margin-top:18px}
+  .btn[aria-disabled="true"]{cursor:not-allowed;background:var(--navy-soft);opacity:.78}
+
+  /* organizers - elevated panel: the formal roster of record */
   .organizers-panel{
     background:
       radial-gradient(140% 100% at 0% 0%, rgba(10,36,82,0.05), transparent 60%),
@@ -208,7 +236,7 @@
     border-left:2px solid var(--navy);
     padding:38px 40px;
   }
-  /* roster breaks the reading measure — it is a table, not prose;
+  /* roster breaks the reading measure - it is a table, not prose;
      the section itself still opens with a divider the same length as every other section's */
   #organizers{max-width:940px;border-top:none;padding-top:0}
   #organizers::before{content:"";display:block;width:var(--max);max-width:100%;border-top:1px solid var(--line);padding-top:68px}
@@ -235,7 +263,7 @@
   .organizer .mail{display:inline-block;margin-top:9px;font-size:12.5px;color:var(--navy);text-underline-offset:3px}
   .organizer .mail:hover{text-decoration:none}
 
-  /* workshop team — a lighter, quieter roll call beneath the panel */
+  /* workshop team - a lighter, quieter roll call beneath the panel */
   .team-block{margin-top:40px;max-width:600px}
   .team-eyebrow{
     display:block;color:var(--faint);margin-bottom:14px;
@@ -266,6 +294,8 @@
     .hero{padding-top:64px}
     .entry{grid-template-columns:1fr;gap:6px}
     .cfp-tracks{grid-template-columns:1fr}
+    .schedule-groups{grid-template-columns:1fr;gap:34px}
+    .schedule-item{grid-template-columns:98px minmax(0,1fr)}
     .cfp-track h4{min-height:0}
     .organizers-grid{grid-template-columns:1fr;row-gap:32px}
     .organizer,.organizer:not(:first-child){padding-left:0;padding-right:0}
@@ -290,8 +320,9 @@
       <nav aria-label="Sections">
         <a href="#overview"><span class="n">i.</span>Overview</a>
         <a href="#topics"><span class="n">ii.</span>Topics of interest</a>
-        <a href="#cfp"><span class="n">iii.</span>Call for papers</a>
-        <a href="#organizers"><span class="n">iv.</span>Organizers</a>
+        <a href="#schedule"><span class="n">iii.</span>Schedule</a>
+        <a href="#cfp"><span class="n">iv.</span>Call for papers</a>
+        <a href="#organizers"><span class="n">v.</span>Organizers</a>
       </nav>
     </div>
     <div class="side-foot">
@@ -323,34 +354,65 @@
       <div class="entry"><div class="num">01</div><div>
         <h3>Safety, Alignment, and Management of Agentic and Physical AI</h3>
         <p>Autonomy, embodiment, multimodality, safety evaluation, and meaningful human control.</p>
-        <p class="eg"><span class="lbl">Example question —</span> How do we ensure that increasingly autonomous and embodied AI systems remain safe, aligned, and under meaningful human control?</p>
+        <p class="eg"><span class="lbl">Example question:</span> How do we ensure that increasingly autonomous and embodied AI systems remain safe, aligned, and under meaningful human control?</p>
       </div></div>
       <div class="entry"><div class="num">02</div><div>
         <h3>Human Oversight, Agency, and Trustworthy AI Interaction</h3>
         <p>Delegation, trust calibration, usable privacy and transparency, intervention, and recovery.</p>
-        <p class="eg"><span class="lbl">Example question —</span> How can people effectively understand, oversee, and intervene in AI systems without losing their own agency?</p>
+        <p class="eg"><span class="lbl">Example question:</span> How can people effectively understand, oversee, and intervene in AI systems without losing their own agency?</p>
       </div></div>
       <div class="entry"><div class="num">03</div><div>
         <h3>Open Models, Data Governance, and Resilient AI Deployment</h3>
         <p>Open-weight and foundation models, local adaptation, data access and quality, evaluation benchmarks, compute/API dependencies, portability, and continuity of service.</p>
-        <p class="eg"><span class="lbl">Example question —</span> How can we build open and adaptable AI systems that remain reliable without depending entirely on a few models, datasets, or service providers?</p>
+        <p class="eg"><span class="lbl">Example question:</span> How can we build open and adaptable AI systems that remain reliable without depending entirely on a few models, datasets, or service providers?</p>
       </div></div>
       <div class="entry"><div class="num">04</div><div>
         <h3>Language, Culture, and Civic AI for the Public Interest</h3>
         <p>Local-language and culturally grounded AI, cultural representation, participatory design, public services, and media literacy.</p>
-        <p class="eg"><span class="lbl">Example question —</span> How can people from different technical, cultural, and professional backgrounds help build AI that better serves diverse languages, communities, and public needs?</p>
+        <p class="eg"><span class="lbl">Example question:</span> How can people from different technical, cultural, and professional backgrounds help build AI that better serves diverse languages, communities, and public needs?</p>
       </div></div>
       <div class="entry"><div class="num">05</div><div>
         <h3>Democratic Resilience and Multi-Stakeholder AI Governance</h3>
         <p>Public accountability, agile regulatory design, institutional coordination, deliberation, and co-governance.</p>
-        <p class="eg"><span class="lbl">Example question —</span> How can governments, researchers, industry, and the public meaningfully participate in governing AI and holding it accountable?</p>
+        <p class="eg"><span class="lbl">Example question:</span> How can governments, researchers, industry, and the public meaningfully participate in governing AI and holding it accountable?</p>
       </div></div>
 
       <p class="topics-note">The list above is illustrative, not exhaustive. We welcome any work relevant to sovereign, collaborative, and pluralistic AI.</p>
     </section>
 
+    <section id="schedule">
+      <div class="section-head"><span class="n">iii.</span><h2>Schedule</h2></div>
+      <p class="lede schedule-intro">A full day of invited talks, paper presentations, posters, and participatory discussion. Details of the interactive session will be announced.</p>
+
+      <div class="schedule-groups">
+        <div class="schedule-group">
+          <h3>Morning</h3>
+          <div class="schedule-item"><time class="schedule-time">09:00-09:15</time><div><div class="schedule-title">Opening</div><div class="schedule-detail">15 minutes</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">09:15-10:05</time><div><div class="schedule-title">Keynote I</div><div class="schedule-detail">50 minutes</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">10:05-10:50</time><div><div class="schedule-title">Paper Session I</div><div class="schedule-detail">3 papers, 15 minutes each</div></div></div>
+          <div class="schedule-item break"><time class="schedule-time">10:50-11:05</time><div><div class="schedule-title">Break</div><div class="schedule-detail">15 minutes</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">11:05-11:50</time><div><div class="schedule-title">Paper Session II</div><div class="schedule-detail">3 papers, 15 minutes each</div></div></div>
+          <div class="schedule-item break"><time class="schedule-time">11:50-13:00</time><div><div class="schedule-title">Lunch</div></div></div>
+        </div>
+
+        <div class="schedule-group">
+          <h3>Afternoon</h3>
+          <div class="schedule-item"><time class="schedule-time">13:00-13:45</time><div><div class="schedule-title">Poster Session</div><div class="schedule-detail">45 minutes</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">13:45-15:45</time><div><div class="schedule-title">Interactive Session</div><div class="schedule-detail">120 minutes. Format to be announced.</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">15:45-16:35</time><div><div class="schedule-title">Keynote II</div><div class="schedule-detail">50 minutes</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">16:35-17:00</time><div><div class="schedule-title">Closing</div><div class="schedule-detail">25 minutes</div></div></div>
+        </div>
+      </div>
+
+      <div class="interest">
+        <h3>Interested in attending?</h3>
+        <p>RSVP through our Google interest form. The registration link will be available soon.</p>
+        <a class="btn" href="#" aria-disabled="true" aria-label="RSVP interest form, link to be announced">RSVP interest form: TBD<span class="arr">&rarr;</span></a>
+      </div>
+    </section>
+
     <section id="cfp" class="cfp">
-      <div class="section-head"><span class="n">iii.</span><h2>Call for Papers</h2></div>
+      <div class="section-head"><span class="n">iv.</span><h2>Call for Papers</h2></div>
       <p>Sovereign AI invites researchers and practitioners to treat sovereign AI as a human-AI complementarity, interaction, and governance problem: when AI systems claim to serve local law, language, culture, and the public interest while depending on global models, data, compute, and institutions, how should they be built, used, evaluated, and governed?</p>
 
       <p>Building on the five themes above, we welcome work from:</p>
@@ -371,7 +433,7 @@
 
       <div class="cfp-submissions">
         <p><strong>Submissions:</strong> We welcome <strong>full papers, work-in-progress papers, position papers, surveys, system demonstrations, and deployment case studies</strong> that surface real dilemmas and failures.</p>
-        <p>Full papers may be <strong>up to 6000 words (excluding references)</strong>, while all other submission types should be <strong>2&ndash;4 pages (excluding references)</strong> using the ACM conference format.</p>
+        <p>Full papers may be <strong>up to 6000 words (excluding references)</strong>, while all other submission types should be <strong>2-4 pages (excluding references)</strong> using the ACM conference format.</p>
         <p>Accepted submissions will be presented as talks, posters, or interactive demonstrations and will contribute to the workshop&rsquo;s cross-disciplinary discussions and collaborative outcomes.</p>
         <p>See <a href="https://hcomp.acm.org/2026/submit.html#general">General Submission Instructions</a> for the official ACM templates and formatting policies.</p>
       </div>
@@ -386,7 +448,7 @@
     </section>
 
     <section id="organizers">
-      <div class="section-head"><span class="n">iv.</span><h2>Organizers</h2></div>
+      <div class="section-head"><span class="n">v.</span><h2>Organizers</h2></div>
 
       <div class="organizers-panel">
         <div class="organizers-grid">
@@ -422,7 +484,7 @@
 </div>
 
 <script>
-  // scrollspy — exactly one active link: the first visible section in document order
+  // scrollspy - exactly one active link: the first visible section in document order
   (function(){
     var map = {};
     document.querySelectorAll('.sidebar nav a').forEach(function(a){
@@ -434,7 +496,7 @@
       entries.forEach(function(e){ visible[e.target.id] = e.isIntersecting; });
       var first = null;
       for(var i=0;i<sections.length;i++){ if(visible[sections[i].id]){ first = sections[i].id; break; } }
-      if(first === current) return;              // nothing changed — skip the DOM writes
+      if(first === current) return;              // nothing changed - skip the DOM writes
       if(map[current]) map[current].classList.remove('active');
       current = first;
       if(map[current]) map[current].classList.add('active');
@@ -442,7 +504,7 @@
     sections.forEach(function(s){ io.observe(s); });
   })();
 
-  // placeholder links (href="#") — no jump-to-top, just drop focus
+  // placeholder links (href="#") - no jump-to-top, just drop focus
   document.querySelectorAll('a[href="#"]').forEach(function(a){
     a.addEventListener('click', function(e){
       e.preventDefault();
