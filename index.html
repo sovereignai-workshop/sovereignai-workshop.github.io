@@ -135,8 +135,7 @@
 
   /* topic entries - sans titles under serif structure */
   .entry{display:grid;grid-template-columns:46px 1fr;gap:18px;padding:25px 0;border-top:1px solid var(--line)}
-  .lede + .entry{border-top:none;padding-top:8px}
-  .topics-note + .entry{border-top:none;padding-top:34px}
+  .lede + .entry,.section-head + .entry{border-top:none;padding-top:8px}
   .entry .num{color:var(--navy);font-size:15px;padding-top:1px}
   .entry h3{
     font-family:var(--sans);font-size:15.5px;font-weight:600;letter-spacing:-.008em;
@@ -341,19 +340,16 @@
     <div class="hero">
       <span class="eyebrow">Full-day workshop</span>
       <h1>The First Workshop on Sovereign AI for Collaborative and Pluralistic AI Ecosystems</h1>
-      <p class="sub">As today's AI ecosystem is increasingly shaped by globally concentrated models, data, compute, and institutions, this workshop examines how AI systems that shape local governance, language, and culture can remain contestable and answerable to the communities they represent.</p>
+      <p class="sub">As today's AI ecosystem is shaped by models, data, and compute concentrated in a few global institutions, discussions of &ldquo;sovereign AI&rdquo; are often reduced to a question of infrastructure. This workshop asks a deeper question: who holds the power to decide what stories AI tells, whose communities it represents, and whose values it is aligned to?</p>
     </div>
 
     <section id="overview">
       <div class="section-head"><span class="n">i.</span><h2>Overview</h2></div>
-      <p class="lede">AI systems have transformed how societies communicate, decide, and govern. Yet the models, datasets, and their inherent cultural contexts remain concentrated in the hands of remarkably few. This growing centralized dependence raises urgent concerns about homogenization, cultural erasure, pluralism, and the concentration of power over AI development and the values it reflects.</p>
-      <p class="lede">This workshop convenes researchers, practitioners, and policymakers to examine how inclusive AI ecosystems can be designed to preserve individual and collective agency, support diverse values, and enable collaborative governance rather than centralized control.</p>
+      <p class="lede">Sovereignty is often equated with owning one&rsquo;s own compute and models &mdash; but compute and models are ultimately the means of sovereignty, not its ends. This workshop convenes the AI, HCI, and law &amp; policy communities around a shared question: how can technical capacity, interaction design, and governance institutions together keep AI systems contestable and answerable to the communities they represent?</p>
     </section>
 
     <section id="topics">
       <div class="section-head"><span class="n">ii.</span><h2>Topics of Interest</h2></div>
-      <p class="lede">We invite contributors across five broad themes, welcoming perspectives from AI, HCI, and public policy. </p>
-      <p class="topics-note">Each theme is introduced by an illustrative question, but the questions and topics listed below are intended to serve as starting points rather than limits. We also encourage submissions that go beyond these themes by extending, reframing, or connecting them.</p>
       <div class="entry"><div class="num">01</div><div>
         <h3>Safety and Alignment for Agentic & Physical AI</h3>
         <p>How do we ensure that increasingly autonomous and embodied AI systems remain safe, aligned, and under meaningful human control, especially when they are adapted or deployed outside the contexts in which they were built?</p>
@@ -361,9 +357,9 @@
         
       </div></div>
       <div class="entry"><div class="num">02</div><div>
-        <h3>Open Models, Data Governance, and Responsible Deployment</h3>
-        <p>How can we build open and adaptable AI systems that avoid structural dependence on a small number of models, datasets, or service providers?</p>
-        <p class="eg"><span class="lbl">Possible topics: </span>open-weight and foundation models, open data, data provenance and quality, local adaptation, benchmarking and evaluation, efficient training, compute and API dependencies</p>
+        <h3>Open Models, Data Sovereignty, and Responsible Deployment</h3>
+        <p>How can open models and local data governance move beyond the defensive goal of &ldquo;reducing dependence&rdquo; to become positive conditions for cultural and narrative agency? How can communities build on global models while retaining control over how their data, corpora, and knowledge are collected, interpreted, and used?</p>
+        <p class="eg"><span class="lbl">Possible topics: </span>Indigenous and community data sovereignty, open-weight and foundation models, local adaptation, data provenance</p>
       </div></div>
       <div class="entry"><div class="num">03</div><div>
         <h3>Human Agency &amp; Trustworthy Human-AI Interaction</h3>
@@ -377,7 +373,7 @@
       </div></div>
       <div class="entry"><div class="num">05</div><div>
         <h3>Democratic Resilience and Multi-Stakeholder AI Governance</h3>
-        <p>How can governments, researchers, industry, and the public meaningfully participate in governing AI and holding it accountable?</p>
+        <p>How can governments, researchers, industry, and the public meaningfully participate in governing AI and holding it accountable? And when &ldquo;the local community&rdquo; is itself plural &mdash; even internally contested &mdash; who has the legitimacy to speak on its behalf?</p>
         <p class="eg"><span class="lbl">Possible topics: </span>agile regulatory design, AI ethics, AI law and privacy, public accountability, transparency and explainability, auditable algorithms, due process and contestability, institutional coordination, public-sector deployment, co-governance, and deliberative democracy</p>
       </div></div>
     </section>
@@ -415,9 +411,9 @@
 
     <section id="cfp" class="cfp">
       <div class="section-head"><span class="n">iv.</span><h2>Call for Papers</h2></div>
-      <p>This workshop invites researchers and practitioners to explore sovereign AI through the lens of human-AI collaboration, interaction, and governance: How should AI systems be built, deployed, evaluated, and governed to reflect local contexts and public needs while relying on global models, data, and institutions?</p>
+      <p>This workshop invites researchers and practitioners to rethink sovereign AI through the lens of human-AI collaboration, interaction, and governance: when global models inevitably shape local lives, how can communities retain the capacity to define their own narratives, values, and collective futures?</p>
 
-      <p>We welcome contributions that advance, critique, or reimagine sovereign AI across technical, design, and governance perspectives. We particularly encourage submissions from researchers and practitioners in AI, including <strong>NLP and ML, HCI, public policy, government, journalism, civil society</strong>, and related fields.</p>
+      <p>We welcome contributions that advance, critique, or reimagine sovereign AI through three complementary paths including <strong>technical</strong> (models, data, safety, and evaluation), <strong>design</strong> (interaction, oversight, and intervention), and <strong>institutional</strong> (law, policy, and governance). We especially encourage work that crosses these boundaries. We particularly welcome submissions from researchers and practitioners in <strong>AI, HCI, law and public policy, government, journalism, civil society, open-source communities</strong>, and related fields.</p>
 
       <!--
       <p>Building on the five themes above, we welcome work from:</p>
