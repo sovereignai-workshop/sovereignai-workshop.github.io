@@ -151,13 +151,12 @@
   /* Measure is set by the grid column, not by `ch` - `ch` is font-relative, so the
      same value on 14.5px sans and 13.5px serif italic wraps at different widths. */
   .entry p{color:var(--muted);font-size:14.5px;line-height:1.75}
-  /* example questions - annotation register: an aside, not a requirement */
+  /* "possible topics" hint - annotation register: an aside, not a requirement */
   .entry .eg{
     font-family:var(--serif);font-style:italic;
     color:var(--muted);font-size:15px;line-height:1.75;
     margin-top:8px;
   }
-  .entry .eg .lbl{color:var(--muted)}
   .topics-note{
     font-family:var(--serif);font-style:italic;
     color:var(--muted);font-size:15px;line-height:1.75;
@@ -169,15 +168,6 @@
   .cfp-submissions strong{font-weight:550;color:inherit}
   .cfp p a{color:var(--navy);text-underline-offset:3px}
   .cfp p a:hover{text-decoration:none}
-
-  /* CFP tracks - three parallel disciplines, side by side */
-  .cfp-tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:28px 0 32px}
-  /* reserve two title lines so every description starts on the same baseline */
-  .cfp-track h4{
-    font-family:var(--sans);font-size:13.5px;font-weight:600;letter-spacing:-.005em;
-    color:var(--navy);line-height:1.45;min-height:2.9em;margin-bottom:6px;
-  }
-  .cfp-track p{color:var(--muted);font-size:13.5px;line-height:1.65;margin-bottom:0;max-width:32ch}
 
   .cfp-submissions{margin:28px 0}
   .cfp-submissions p{margin-bottom:12px}
@@ -248,24 +238,25 @@
      the section itself still opens with a divider the same length as every other section's */
   #organizers{max-width:940px;border-top:none;padding-top:0}
   #organizers::before{content:"";display:block;width:var(--max);max-width:100%;border-top:1px solid var(--line);padding-top:68px}
-  .organizers-grid{display:grid;grid-template-columns:1fr 1fr}
+  .organizers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
   .organizer{
-    display:flex;gap:22px;align-items:flex-start;
-    padding-right:44px;position:relative;
+    display:flex;flex-direction:column;align-items:flex-start;
+    padding:0 28px;position:relative;
   }
-  .organizer:not(:first-child){padding-right:0;padding-left:44px}
+  .organizer:first-child{padding-left:0}
+  .organizer:last-child{padding-right:0}
   .organizer:not(:first-child)::before{
-    content:"";position:absolute;left:0;top:8px;bottom:8px;width:1px;
+    content:"";position:absolute;left:0;top:4px;bottom:4px;width:1px;
     background:var(--line);
   }
   .organizer .photo{
-    flex:none;margin-top:2px;
-    width:88px;height:88px;border-radius:50%;
+    flex:none;
+    width:96px;height:96px;border-radius:50%;
     background:var(--navy);
     background-size:cover;background-position:center;
     box-shadow:0 0 0 1px rgba(10,36,82,0.1), inset 0 0 0 2px rgba(255,255,255,0.14);
   }
-  .organizer .id{padding-top:6px}
+  .organizer .id{padding-top:16px}
   .organizer h3{font-family:var(--sans);font-size:15.5px;font-weight:600;letter-spacing:-.008em;color:var(--ink);line-height:1.35}
   .organizer .role{color:var(--muted);font-size:13px;margin-top:6px;line-height:1.6}
   .organizer .mail{display:inline-block;margin-top:9px;font-size:12.5px;color:var(--navy);text-underline-offset:3px}
@@ -351,11 +342,10 @@
 
     .hero,section,footer{padding-left:24px;padding-right:24px}
     .hero{padding-top:48px}
+    section{scroll-margin-top:58px}
     .entry{grid-template-columns:1fr;gap:6px}
-    .cfp-tracks{grid-template-columns:1fr}
     .schedule-groups{grid-template-columns:1fr;gap:34px}
     .schedule-item{grid-template-columns:98px minmax(0,1fr)}
-    .cfp-track h4{min-height:0}
     .organizers-grid{grid-template-columns:1fr;row-gap:32px}
     .organizer,.organizer:not(:first-child){padding-left:0;padding-right:0}
     .organizer:not(:first-child)::before{display:none}
@@ -371,9 +361,9 @@
 <div class="mobile-topbar">
   <a class="brand-mini" href="#top">
     <svg width="24" height="24" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-      <circle cx="20" cy="20" r="17.4" stroke="var(--navy)" stroke-width="2.2" opacity=".8"/>
-      <ellipse cx="20" cy="20" rx="8.4" ry="17.4" stroke="var(--navy)" stroke-width="2.2" opacity=".8"/>
-      <path d="M2.6 20h34.8" stroke="var(--navy)" stroke-width="2.2" opacity=".8"/>
+      <circle cx="20" cy="20" r="17.4" stroke="#0A2452" stroke-width="2.2" opacity=".8"/>
+      <ellipse cx="20" cy="20" rx="8.4" ry="17.4" stroke="#0A2452" stroke-width="2.2" opacity=".8"/>
+      <path d="M2.6 20h34.8" stroke="#0A2452" stroke-width="2.2" opacity=".8"/>
     </svg>
     Sovereign AI
   </a>
@@ -433,7 +423,6 @@
         <h3>Safety and Alignment for Agentic & Physical AI</h3>
         <p>How do we ensure that increasingly autonomous and embodied AI systems remain safe, aligned, and under meaningful human control, especially when they are adapted or deployed outside the contexts in which they were built?</p>
         <p class="eg"><span class="lbl">Possible topics: </span>agentic and embodied AI, retrieval-augmented generation (RAG), multimodal alignment, human-in-the-loop, safety evaluation, LLM vulnerabilities, scalable oversight, uncertainty estimation and calibration, vision-language-action (VLA) models</p>
-        
       </div></div>
       <div class="entry"><div class="num">02</div><div>
         <h3>Open Models, Data Sovereignty, and Responsible Deployment</h3>
@@ -494,24 +483,6 @@
 
       <p>We welcome contributions that advance, critique, or reimagine sovereign AI through three complementary paths including <strong>technical</strong> (models, data, safety, and evaluation), <strong>design</strong> (interaction, oversight, and intervention), and <strong>institutional</strong> (law, policy, and governance). We especially encourage work that crosses these boundaries. We particularly welcome submissions from researchers and practitioners in <strong>AI, HCI, law and public policy, government, journalism, civil society, open-source communities</strong>, and related fields.</p>
 
-      <!--
-      <p>Building on the five themes above, we welcome work from:</p>
-      <div class="cfp-tracks">
-        <div class="cfp-track">
-          <h4>AI / ML &amp; Industry</h4>
-          <p>Safety, alignment, control, open models, data governance, evaluation, and resilient deployment.</p>
-        </div>
-        <div class="cfp-track">
-          <h4>HCI, Design &amp; Social Computing</h4>
-          <p>Oversight, agency, trust calibration, usable privacy, participatory design, and civic AI.</p>
-        </div>
-        <div class="cfp-track">
-          <h4>Law, Policy &amp; Civil Society</h4>
-          <p>Democratic resilience, public-interest AI, agile governance, and multi-stakeholder coordination.</p>
-        </div>
-      </div>
-      -->
-
       <div class="cfp-submissions">
         <p>Submissions may take the form of <strong>full papers, work-in-progress, or real-world case studies</strong>.</p>
         <p>Full papers may be <strong>up to 6000 words (excluding references)</strong>, while all other submission types should be <strong>2-4 pages (excluding references)</strong> using the ACM conference format.</p>
@@ -548,6 +519,14 @@
               <h3>Wan-Jhen (Crystal) Wu</h3>
               <p class="role">Technical Program Manager, Taiwan Public Media NewsLLM Project, Academia Sinica, Taiwan</p>
               <a class="mail" href="mailto:apokoios@as.edu.tw">apokoios@as.edu.tw</a>
+            </div>
+          </div>
+          <div class="organizer">
+            <div class="photo" style="background-image:url('yang.jpg')"></div>
+            <div class="id">
+              <h3>Joshua C. Yang</h3>
+              <p class="role">Postdoctoral Fellow, MIT Laboratory for Information &amp; Decision Systems</p>
+              <a class="mail" href="mailto:joshyang@mit.edu">joshyang@mit.edu</a>
             </div>
           </div>
         </div>
