@@ -198,9 +198,10 @@
   .btn:hover .arr{transform:translateX(3px)}
   .btn:active{transform:translateY(1px)}
 
-  /* schedule - grouped by the natural lunch break for faster scanning */
+  /* schedule */
   .schedule-intro{margin-bottom:34px}
   .schedule-groups{display:grid;grid-template-columns:1fr 1fr;gap:46px}
+  .schedule-group:only-child{grid-column:1/-1}
   .schedule-group h3{
     font-family:var(--sans);font-size:11px;font-weight:600;
     letter-spacing:.14em;text-transform:uppercase;color:var(--navy);
@@ -311,16 +312,23 @@
     display:grid;grid-template-columns:116px 1fr auto;gap:26px;align-items:center;
     padding:28px 30px;background:var(--paper-alt);border-left:2px solid var(--navy);
   }
-  .facilitator-strip img{
-    display:block;width:116px;height:116px;object-fit:cover;object-position:center;
-    border-radius:2px;
-  }
+  .facilitator-placeholder{display:block;width:116px;height:116px}
   .facilitator-label{
     display:block;margin-bottom:7px;color:var(--faint);font-size:10.5px;
     font-weight:550;letter-spacing:.16em;text-transform:uppercase;
   }
   .facilitator-strip h3{font-size:17px;font-weight:650;color:var(--ink);line-height:1.3}
   .facilitator-strip p{max-width:54ch;margin-top:6px;color:var(--muted);font-size:13px;line-height:1.6}
+  .vtaiwan-process{max-width:54ch;margin-top:15px;padding-top:13px;border-top:1px solid var(--line)}
+  .vtaiwan-kicker{
+    display:block;color:var(--navy);font-size:10.5px;font-weight:650;
+    letter-spacing:.1em;text-transform:uppercase;
+  }
+  .vtaiwan-process p{margin-top:7px}
+  .vtaiwan-values{max-width:54ch;margin-top:14px;display:grid;gap:7px}
+  .vtaiwan-values div{display:grid;grid-template-columns:92px minmax(0,1fr);gap:12px}
+  .vtaiwan-values dt{font-size:12.5px;font-weight:650;color:var(--navy);line-height:1.5}
+  .vtaiwan-values dd{font-size:12.5px;color:var(--muted);line-height:1.5}
   .murmi-link{
     display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
     color:var(--navy);font-size:13px;font-weight:600;text-decoration:none;
@@ -457,7 +465,7 @@
     .session-flow p{margin-top:7px}
     .outcomes{grid-template-columns:1fr;gap:30px}
     .facilitator-strip{grid-template-columns:88px 1fr;gap:20px;padding:24px}
-    .facilitator-strip img{width:88px;height:88px}
+    .facilitator-placeholder{width:88px;height:88px}
     .facilitator-strip .murmi-link{grid-column:2;justify-self:start}
     .organizers-grid{grid-template-columns:1fr;row-gap:32px}
     .organizer,.organizer:not(:first-child){padding-left:0;padding-right:0}
@@ -518,7 +526,7 @@
         <a href="#overview"><span class="n">i.</span>Overview</a>
         <a href="#topics"><span class="n">ii.</span>Topics of interest</a>
         <a href="#schedule"><span class="n">iii.</span>Schedule</a>
-        <a href="#interactive"><span class="n">iv.</span>Interactive session</a>
+        <a href="#interactive"><span class="n">iv.</span>Hacking Sovereign AI</a>
         <a href="#cfp"><span class="n">v.</span>Call for papers</a>
         <a href="#organizers"><span class="n">vi.</span>Organizers</a>
       </nav>
@@ -576,25 +584,18 @@
 
     <section id="schedule">
       <div class="section-head"><span class="n">iii.</span><h2>Schedule</h2></div>
-      <p class="lede schedule-intro">A full day of invited talks, paper presentations, posters, and a two-hour deliberative democracy experiment on what sovereign AI should know and how it should answer.</p>
+      <p class="lede schedule-intro">A focused half-day program of keynotes, posters, and Hacking Sovereign AI, a participatory session on what Sovereign AI should know and how it should respond.</p>
 
       <div class="schedule-groups">
         <div class="schedule-group">
-          <h3>Morning</h3>
+          <h3>Program</h3>
           <div class="schedule-item"><time class="schedule-time">09:00-09:15</time><div><div class="schedule-title">Opening</div><div class="schedule-detail">15 minutes</div></div></div>
-          <div class="schedule-item"><time class="schedule-time">09:15-10:05</time><div><div class="schedule-title">Keynote I</div><div class="schedule-detail">50 minutes</div></div></div>
-          <div class="schedule-item"><time class="schedule-time">10:05-10:50</time><div><div class="schedule-title">Paper Session I</div><div class="schedule-detail">3 papers, 15 minutes each</div></div></div>
-          <div class="schedule-item break"><time class="schedule-time">10:50-11:05</time><div><div class="schedule-title">Break</div><div class="schedule-detail">15 minutes</div></div></div>
-          <div class="schedule-item"><time class="schedule-time">11:05-11:50</time><div><div class="schedule-title">Paper Session II</div><div class="schedule-detail">3 papers, 15 minutes each</div></div></div>
-          <div class="schedule-item break"><time class="schedule-time">11:50-13:00</time><div><div class="schedule-title">Lunch</div></div></div>
-        </div>
-
-        <div class="schedule-group">
-          <h3>Afternoon</h3>
-          <div class="schedule-item"><time class="schedule-time">13:00-13:45</time><div><div class="schedule-title">Poster Session</div><div class="schedule-detail">45 minutes</div></div></div>
-          <div class="schedule-item"><time class="schedule-time">13:45-15:45</time><div><div class="schedule-title"><a href="#interactive">Interactive Session</a></div><div class="schedule-detail">120 minutes. Deliberative democracy with Murmi.</div></div></div>
-          <div class="schedule-item"><time class="schedule-time">15:45-16:35</time><div><div class="schedule-title">Keynote II</div><div class="schedule-detail">50 minutes</div></div></div>
-          <div class="schedule-item"><time class="schedule-time">16:35-17:00</time><div><div class="schedule-title">Closing</div><div class="schedule-detail">25 minutes</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">09:15-10:00</time><div><div class="schedule-title">Keynote I</div><div class="schedule-detail">45 minutes</div></div></div>
+          <div class="schedule-item break"><time class="schedule-time">10:00-10:30</time><div><div class="schedule-title">Coffee Break &amp; Poster Session</div><div class="schedule-detail">30 minutes</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">10:30-11:15</time><div><div class="schedule-title">Keynote II</div><div class="schedule-detail">45 minutes</div></div></div>
+          <div class="schedule-item break"><time class="schedule-time">11:15-11:30</time><div><div class="schedule-title">Coffee Break</div><div class="schedule-detail">15 minutes</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">11:30-12:15</time><div><div class="schedule-title"><a href="#interactive">Hacking Sovereign AI</a></div><div class="schedule-detail">45 minutes. Deliberative democracy with Murmi.</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">12:15-12:30</time><div><div class="schedule-title">Closing</div><div class="schedule-detail">15 minutes</div></div></div>
         </div>
       </div>
 
@@ -607,7 +608,7 @@
 
     <section id="interactive" class="interactive">
       <div class="interactive-intro">
-        <div class="section-head"><span class="n">iv.</span><h2>Interactive Session</h2></div>
+        <div class="section-head"><span class="n">iv.</span><h2>Hacking Sovereign AI</h2></div>
       </div>
 
       <div class="prompt-field">
@@ -659,13 +660,23 @@
       </div>
 
       <div class="facilitator-strip">
-        <img src="yang.jpg" width="116" height="116" loading="lazy" alt="Joshua C. Yang">
+        <div class="facilitator-placeholder" aria-hidden="true"></div>
         <div>
-          <span class="facilitator-label">Session facilitator</span>
-          <h3>Joshua C. Yang</h3>
-          <p>Joshua C. Yang is a Postdoctoral Researcher at ETH Zurich, an incoming Postdoctoral Fellow at the MIT Laboratory for Information &amp; Decision Systems, and a co-developer of Murmi. His work connects computational social science, collective intelligence, and public participation, including process and system design with vTaiwan. He will guide participants from discussion to a shared perspective map.</p>
+          <span class="facilitator-label">Mission</span>
+          <h3>vTaiwan</h3>
+          <p>vTaiwan is Taiwan&rsquo;s open platform for collaborative policymaking. It brings government, experts, businesses, and citizens into a shared process that combines online participation with in-person deliberation. Participants propose issues, contribute perspectives, examine disagreement, identify common ground, and develop practical policy recommendations.</p>
+          <p>vTaiwan does not make policy decisions. It creates an open channel between the public and decision-makers, allowing a wider range of voices to inform how policy is shaped.</p>
+          <div class="vtaiwan-process">
+            <span class="vtaiwan-kicker">Process</span>
+            <p>Frame issues &rarr; Gather input &rarr; Deliberate &rarr; Develop recommendations</p>
+          </div>
+          <dl class="vtaiwan-values">
+            <div><dt>Openness</dt><dd>Transparent information and an accountable process</dd></div>
+            <div><dt>Collaboration</dt><dd>Broad participation and constructive dialogue</dd></div>
+            <div><dt>Co-creation</dt><dd>Shared problem-solving and practical outcomes</dd></div>
+          </dl>
         </div>
-        <a class="murmi-link" href="https://murmi.org" target="_blank" rel="noopener">Explore Murmi <span class="arr">&rarr;</span></a>
+        <a class="murmi-link" href="https://www.vtaiwan.tw/intro" target="_blank" rel="noopener">Explore vTaiwan <span class="arr">&rarr;</span></a>
       </div>
     </section>
 
@@ -676,8 +687,8 @@
       <p>We welcome contributions that advance, critique, or reimagine sovereign AI through three complementary paths including <strong>technical</strong> (models, data, safety, and evaluation), <strong>design</strong> (interaction, oversight, and intervention), and <strong>institutional</strong> (law, policy, and governance). We especially encourage work that crosses these boundaries. We particularly welcome submissions from researchers and practitioners in <strong>AI, HCI, law and public policy, government, journalism, civil society, open-source communities</strong>, and related fields.</p>
 
       <div class="cfp-submissions">
-        <p>Submissions may take the form of <strong>full papers, work-in-progress, or real-world case studies</strong>.</p>
-        <p>Full papers may be <strong>up to 6000 words (excluding references)</strong>, while all other submission types should be <strong>2-4 pages (excluding references)</strong> using the ACM conference format.</p>
+        <p>Submissions may take the form of <strong>extended abstracts, work-in-progress reports, or real-world case studies</strong>.</p>
+        <p>Submissions should be <strong>2-4 pages (excluding references)</strong> using the ACM conference format.</p>
         <p>Accepted submissions will be presented as talks, posters, or interactive demonstrations and will serve as the foundation for the workshop&rsquo;s interactive discussions and collaborative activities.</p>
         <p>See <a href="https://hcomp.acm.org/2026/submit.html#general">General Submission Instructions</a> for the official ACM templates and formatting policies.</p>
       </div>
