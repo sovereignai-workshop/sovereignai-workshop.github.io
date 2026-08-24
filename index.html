@@ -25,6 +25,7 @@
     --rule:#eceff4;   /* section hairline - lighter than --line, used only between sections */
     --paper:#fefefd;
     --paper-alt:#f4f6fa;
+    --speaker-surface:#edf2f8;
     --serif:'Source Serif 4',Georgia,serif;
     --sans:'Instrument Sans',system-ui,sans-serif;
     --sidebar-w:clamp(268px, 20vw, 306px);
@@ -33,6 +34,7 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
+  html.newsllm-collapsing{scroll-behavior:auto}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
   ::selection{background:var(--navy);color:#fff}
   body{
@@ -45,7 +47,8 @@
   a:focus-visible{outline:2px solid var(--navy);outline-offset:3px}
   .sidebar a:focus-visible{outline-color:#fff}
 
-  h1,h2{font-family:var(--serif)}
+  /* Main display titles use the same Instrument Sans register as the workshop prompt. */
+  h1,h2{font-family:var(--sans)}
 
   /* annotation register - always serif italic, oldstyle figures */
   .n,.num,.dates-note{
@@ -278,18 +281,26 @@
   .btn:hover .arr{transform:translateX(3px)}
   .btn:active{transform:translateY(1px)}
 
-  /* confirmed speakers - shares the organizer card layout, no mail-style link row spacing change */
-  .speakers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;margin-bottom:48px}
-  .speaker{display:flex;flex-direction:column;align-items:flex-start}
-  .speaker .photo{
-    flex:none;width:96px;height:96px;border-radius:50%;background:var(--navy);
-    background-size:cover;background-position:center;
-    box-shadow:0 0 0 1px rgba(10,36,82,0.1), inset 0 0 0 2px rgba(255,255,255,0.14);
+  /* Speaker portraits and names carry the emphasis. Editorial rows keep the
+     roster distinct without turning each person into a large promotional slab. */
+  .speakers-grid{
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:840px;
   }
-  .speaker .id{padding-top:16px}
-  .speaker h3{font-family:var(--sans);font-size:15.5px;font-weight:600;letter-spacing:-.008em;color:var(--ink);line-height:1.35}
-  .speaker .role{color:var(--muted);font-size:13px;margin-top:6px;line-height:1.6}
-  .speaker .mail{display:inline-block;margin-top:9px;font-size:12.5px;color:var(--navy);text-underline-offset:3px}
+  .speaker{
+    display:flex;flex-direction:column;align-items:flex-start;min-width:0;
+    padding:24px 22px 22px;background:var(--speaker-surface);color:var(--ink);
+    border:1px solid rgba(10,36,82,.13);border-top:3px solid var(--navy);
+    box-shadow:0 15px 32px -26px rgba(7,26,60,.62),0 2px 5px -4px rgba(7,26,60,.28);
+  }
+  .speaker .photo{
+    flex:none;width:88px;height:88px;border-radius:50%;background:var(--navy);
+    background-size:cover;background-position:center;
+    box-shadow:0 0 0 1px rgba(10,36,82,.28), inset 0 0 0 2px rgba(255,255,255,.32);
+  }
+  .speaker .id{display:flex;flex:1;flex-direction:column;min-width:0;padding-top:18px}
+  .speaker h3{font-family:var(--sans);font-size:17px;font-weight:650;letter-spacing:-.008em;color:var(--navy);line-height:1.35}
+  .speaker .role{color:var(--muted);font-size:13px;margin-top:5px;line-height:1.58;max-width:68ch}
+  .speaker .mail{display:inline-block;align-self:flex-start;margin-top:auto;padding-top:12px;font-size:12.5px;color:var(--navy);text-underline-offset:3px;text-decoration-color:rgba(10,36,82,.32)}
   .speaker .mail:hover{text-decoration:none}
 
   /* schedule */
@@ -406,40 +417,69 @@
   }
   .outcome-list dd{margin-top:5px;color:var(--muted);font-size:12.8px;line-height:1.58}
 
-  /* ---- vTaiwan: a named sub-part of the session, not an aside ---- */
-  .vtaiwan-block{padding-top:26px;border-top:1px solid var(--navy)}
-  .vt-head{display:flex;align-items:flex-start;justify-content:space-between;gap:30px}
+  .facilitator-strip{
+    display:block;padding:28px 30px;background:var(--paper-alt);border-left:2px solid var(--navy);
+  }
+  .facilitator-heading{
+    display:grid;grid-template-columns:56px minmax(0,1fr);
+    gap:18px;align-items:center;margin-bottom:17px;padding-bottom:17px;
+    border-bottom:1px solid var(--line);
+  }
+  .facilitator-heading-copy{grid-column:2;min-width:0}
+  .vtaiwan-logo-panel,.newsllm-title-panel{
+    grid-column:1;grid-row:1;
+    display:flex;align-items:center;justify-content:flex-start;width:56px;height:48px;
+    background:transparent;overflow:hidden;
+  }
+  .vtaiwan-logo-panel img{display:block;width:188px;max-width:none;height:auto;flex:none;margin-left:1px}
+  .newsllm-strip{margin-top:16px}
+  .newsllm-title-panel img{display:block;width:auto;height:48px;max-width:56px;object-fit:contain;mix-blend-mode:multiply}
   .facilitator-label{
     display:block;margin-bottom:7px;color:var(--faint);font-size:10.5px;
     font-weight:550;letter-spacing:.16em;text-transform:uppercase;
   }
-  .vt-head h3{font-family:var(--sans);font-size:21px;font-weight:620;letter-spacing:-.022em;color:var(--navy);line-height:1.25}
-  .vt-logo{flex:none;display:flex;align-items:center;justify-content:center;width:150px;padding:13px 16px;background:var(--navy-deep)}
-  .vt-logo img{display:block;width:100%;height:auto}
-
-  /* two columns so the prose stops running as one narrow 54ch stack */
-  .vt-body{margin-top:18px;max-width:76ch}
-  .vt-body p{color:var(--muted);font-size:14px;line-height:1.72}
-
-  /* the process is a sequence, so it is drawn as one */
-  .vt-process{
-    list-style:none;margin-top:30px;display:grid;grid-template-columns:repeat(4,1fr);
-    gap:0;position:relative;
+  .facilitator-strip h3{font-size:17px;font-weight:650;color:var(--ink);line-height:1.3}
+  .facilitator-strip p{max-width:none;margin-top:6px;color:var(--muted);font-size:13px;line-height:1.6}
+  .vtaiwan-process{max-width:none;margin-top:15px;padding-top:13px;border-top:1px solid var(--line)}
+  .vtaiwan-kicker{
+    display:block;color:var(--navy);font-size:10.5px;font-weight:650;
+    letter-spacing:.1em;text-transform:uppercase;
   }
-  .vt-process::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--line)}
-  .vt-process li{position:relative;padding:16px 22px 0 0}
-  .vt-process li::before{
-    content:"";position:absolute;left:0;top:-3px;width:7px;height:7px;border-radius:50%;
-    background:var(--navy);
+  .vtaiwan-process p{margin-top:7px}
+  .vtaiwan-values{max-width:none;margin-top:14px;display:grid;gap:7px}
+  .vtaiwan-values div{display:grid;grid-template-columns:92px minmax(0,1fr);gap:12px}
+  .vtaiwan-values dt{font-size:12.5px;font-weight:650;color:var(--navy);line-height:1.5}
+  .vtaiwan-values dd{font-size:12.5px;color:var(--muted);line-height:1.5}
+  .newsllm-strip p{max-width:none;margin-top:11px;font-size:13px;line-height:1.68}
+  .newsllm-strip .newsllm-lead{color:var(--ink);font-size:14px;font-weight:400;line-height:1.65}
+  .newsllm-strip em{font-family:var(--serif)}
+  .newsllm-more{display:flex;flex-direction:column;width:100%;max-width:none;margin-top:16px;overflow-anchor:none}
+  .newsllm-more summary{
+    display:inline-flex;align-items:center;gap:8px;list-style:none;cursor:pointer;
+    padding:2px 0 3px;color:var(--navy);font-size:12.5px;font-weight:650;
+    border-bottom:1px solid rgba(10,36,82,.3);align-self:flex-start;
   }
-  .vt-n{
-    display:block;font-family:var(--serif);font-style:italic;
-    font-variant-numeric:oldstyle-nums;font-size:13px;color:var(--faint);margin-bottom:4px;
+  .newsllm-more summary::-webkit-details-marker{display:none}
+  .newsllm-more summary:focus-visible{outline:2px solid var(--navy);outline-offset:3px}
+  .newsllm-more .read-less{display:none}
+  .newsllm-more[open] .read-more{display:none}
+  .newsllm-more[open] .read-less{display:inline}
+  .newsllm-more-mark{
+    display:inline-block;font-size:15px;line-height:1;color:var(--faint);
+    transition:transform .25s cubic-bezier(.16,1,.3,1);
   }
-  .vt-t{display:block;font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.4}
-
-  .vtaiwan-block .murmi-link{margin-top:28px}
-
+  .newsllm-more-content{display:grid;grid-template-rows:1fr;opacity:1}
+  .newsllm-more-content-inner{min-height:0;overflow:hidden}
+  .newsllm-more-content-inner>p:first-child{margin-top:0}
+  .newsllm-more[open] summary{order:1;margin-top:16px}
+  .newsllm-more[open] .newsllm-more-mark{transform:rotate(-90deg)}
+  @media (prefers-reduced-motion:no-preference){
+    .newsllm-more-content{
+      transition:grid-template-rows .52s cubic-bezier(.16,1,.3,1),opacity .34s ease;
+    }
+    .newsllm-more.is-opening .newsllm-more-content,
+    .newsllm-more.is-closing .newsllm-more-content{grid-template-rows:0fr;opacity:0}
+  }
   .murmi-link{
     display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
     color:var(--navy);font-size:13px;font-weight:600;text-decoration:none;
@@ -448,12 +488,15 @@
   .murmi-link .arr{transition:transform .25s cubic-bezier(.16,1,.3,1)}
   .murmi-link:hover .arr{transform:translateX(3px)}
   .murmi-link:active{transform:translateY(1px)}
+  .facilitator-strip .murmi-link{margin-top:18px}
 
   /* the roster is the record, not an aside - no panel chrome, just the grid */
   .organizers-panel{padding:0}
-  /* Organizers and Committee are one roster read in two parts: full rule above the
-     first, none between them, so they group instead of reading as two sections. */
-  #committee{border-top:none;padding-top:12px}
+  .roster-group + .roster-group{margin-top:46px;padding-top:34px;border-top:1px solid var(--line)}
+  .roster-group-title{
+    margin-bottom:24px;font-family:var(--serif);font-size:19px;font-weight:520;
+    letter-spacing:-.012em;color:var(--navy);
+  }
   .organizers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px}
   .organizer{display:flex;flex-direction:column;align-items:flex-start}
   .organizer .photo{
@@ -478,8 +521,8 @@
   @media (prefers-reduced-motion:no-preference){
     .js-reveal .reveal{opacity:0;transform:translateY(10px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
     .js-reveal .reveal.in{opacity:1;transform:none}
-    .js-reveal .vt-process li,.js-reveal .session-flow li{opacity:0;transform:translateY(8px)}
-    .js-reveal .in .vt-process li,.js-reveal .session-flow.in li{
+    .js-reveal .session-flow li{opacity:0;transform:translateY(8px)}
+    .js-reveal .session-flow.in li{
       opacity:1;transform:none;
       transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1);
       transition-delay:calc(var(--i) * 70ms);
@@ -573,15 +616,21 @@
     .session-flow li>div{grid-template-columns:1fr;gap:0}
     .session-flow p{margin-top:7px}
     .outcomes{grid-template-columns:1fr;gap:30px}
-    .vt-head{flex-direction:column-reverse;align-items:flex-start;gap:20px}
-    .vt-body{grid-template-columns:1fr;gap:0}
-    .vt-body p+p{margin-top:14px}
-    .vt-process{grid-template-columns:1fr 1fr;gap:0 0}
-    .vt-process li{padding:16px 18px 18px 0}
-    .vt-process li:nth-child(n+3){border-top:1px solid var(--line);margin-top:4px}
+    .facilitator-strip{padding:24px}
+    .facilitator-heading{grid-template-columns:48px minmax(0,1fr);gap:14px}
+    .vtaiwan-logo-panel,.newsllm-title-panel{width:48px;height:42px}
+    .vtaiwan-logo-panel img{width:162px}
+    .newsllm-title-panel img{height:42px;max-width:48px}
+    .newsllm-strip{scroll-margin-top:74px}
 
     .organizers-grid{grid-template-columns:1fr;gap:32px}
-    .speakers-grid{grid-template-columns:1fr;gap:32px}
+    .speakers-grid{grid-template-columns:1fr;gap:12px}
+    .speaker{display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px;padding:18px;border-top-width:2px}
+    .speaker .photo{width:72px;height:72px}
+    .speaker .id{display:block;padding-top:0}
+    .speaker h3{font-size:15.5px}
+    .speaker .role{font-size:12.5px;line-height:1.5}
+    .speaker .mail{margin-top:8px;padding-top:0}
   }
 
   @media (min-width:861px){
@@ -601,7 +650,7 @@
 
   /* Printing and expanded search should never lose content to a reveal state. */
   @media print{
-    .js-reveal .reveal,.js-reveal .vt-process li,.js-reveal .session-flow li{opacity:1!important;transform:none!important}
+    .js-reveal .reveal,.js-reveal .session-flow li{opacity:1!important;transform:none!important}
     .sidebar,.mobile-topbar{display:none!important}
   }
 
@@ -643,11 +692,11 @@
       <nav aria-label="Sections">
         <a href="#overview"><span class="n">i.</span>Overview</a>
         <a href="#topics"><span class="n">ii.</span>Topics of interest</a>
-        <a href="#schedule"><span class="n">iii.</span>Speakers &amp; Outline</a>
-        <a href="#interactive"><span class="n">iv.</span>Hacking Sovereign AI</a>
-        <a href="#cfp"><span class="n">v.</span>Call for papers</a>
-        <a href="#organizers"><span class="n">vi.</span>Organizers</a>
-        <a href="#committee"><span class="n">vii.</span>Organizing Committee</a>
+        <a href="#speakers"><span class="n">iii.</span>Confirmed Speakers</a>
+        <a href="#schedule"><span class="n">iv.</span>Tentative Outline</a>
+        <a href="#interactive"><span class="n">v.</span>Hacking Sovereign AI</a>
+        <a href="#cfp"><span class="n">vi.</span>Call for papers</a>
+        <a href="#organizers"><span class="n">vii.</span>Organizers</a>
       </nav>
     </div>
     <div class="side-foot">
@@ -662,7 +711,7 @@
 
   <div class="content">
     <div class="hero">
-      <span class="eyebrow">Full-day workshop with HCOMP 2026</span>
+      <span class="eyebrow">Half-day workshop with HCOMP 2026</span>
       <h1><span class="h1-lead">The First Workshop on</span>Sovereign AI for Collaborative and Pluralistic AI Ecosystems</h1>
       <p class="sub">As today's AI ecosystem is shaped by models, data, and compute concentrated in a few global institutions, discussions of &ldquo;sovereign AI&rdquo; are often reduced to a question of infrastructure. This workshop asks a deeper question: who holds the power to decide what stories AI tells, whose communities it represents, and whose values it is aligned to?</p>
     </div>
@@ -701,24 +750,23 @@
       </div></div>
     </section>
 
-    <section id="schedule">
-      <div class="section-head"><span class="n">iii.</span><h2>Confirmed Speakers &amp; Tentative Outline</h2></div>
-
+    <section id="speakers">
+      <div class="section-head"><span class="n">iii.</span><h2>Confirmed Speakers</h2></div>
       <div class="speakers-grid">
-        <div class="speaker">
-          <div class="photo" style="background-image:url('images/people/Senjuti-Dutta.jpg');background-position:center 0px"></div>
-          <div class="id">
-            <h3>Senjuti Dutta</h3>
-            <p class="role">Postdoctoral Fellow, Center for the Dynamics of Social Complexity (DySoC), University of Tennessee</p>
-            <a class="mail" href="https://senjutidutta.com/" target="_blank" rel="noopener">senjutidutta.com</a>
-          </div>
-        </div>
         <div class="speaker">
           <div class="photo" style="background-image:url('images/people/pietro_michelucci_closeup.jpg')"></div>
           <div class="id">
             <h3>Pietro Michelucci</h3>
             <p class="role">President, Human Computation Institute &middot; Visiting Professor, Cornell University, Meinig School of Biomedical Engineering</p>
             <a class="mail" href="https://about.me/pmichelu" target="_blank" rel="noopener">about.me/pmichelu</a>
+          </div>
+        </div>
+        <div class="speaker">
+          <div class="photo" style="background-image:url('images/people/Senjuti-Dutta.jpg');background-position:center 0px"></div>
+          <div class="id">
+            <h3>Senjuti Dutta</h3>
+            <p class="role">Postdoctoral Fellow, Center for the Dynamics of Social Complexity (DySoC), University of Tennessee</p>
+            <a class="mail" href="https://senjutidutta.com/" target="_blank" rel="noopener">senjutidutta.com</a>
           </div>
         </div>
         <div class="speaker">
@@ -730,7 +778,10 @@
           </div>
         </div>
       </div>
+    </section>
 
+    <section id="schedule">
+      <div class="section-head"><span class="n">iv.</span><h2>Tentative Outline</h2></div>
       <p class="lede schedule-intro">Keynote order and exact timing are still being finalized with our speakers.</p>
 
       <div class="schedule-groups">
@@ -755,7 +806,7 @@
 
     <section id="interactive" class="interactive">
       <div class="interactive-intro">
-        <div class="section-head"><span class="n">iv.</span><h2>Hacking Sovereign AI</h2></div>
+        <div class="section-head"><span class="n">v.</span><h2>Hacking Sovereign AI</h2></div>
       </div>
 
       <div class="prompt-field">
@@ -806,33 +857,62 @@
         </dl>
       </div>
 
-      <div class="vtaiwan-block reveal">
-        <div class="vt-head">
-          <div>
+      <div class="facilitator-strip">
+        <div class="facilitator-heading">
+          <div class="facilitator-heading-copy">
             <span class="facilitator-label">Methodological foundation</span>
             <h3>Learning from vTaiwan</h3>
           </div>
-          <div class="vt-logo"><img src="images/vtaiwan-logo-dark.png" width="1049" height="256" loading="lazy" alt="vTaiwan"></div>
+          <div class="vtaiwan-logo-panel">
+            <img src="images/vtaiwan-logo-dark.png" width="1049" height="256" loading="lazy" alt="vTaiwan">
+          </div>
         </div>
-
-        <div class="vt-body">
-          <p>vTaiwan brings government, experts, businesses, and citizens into one process that pairs online participation with in-person deliberation. It does not make policy decisions; it helps participants clarify competing positions and develop recommendations that can inform policy. This session adapts that model for the design and evaluation of Sovereign AI.</p>
+        <div class="facilitator-body">
+          <p>This session adapts vTaiwan&rsquo;s approach to open public-policy deliberation for the design and evaluation of Sovereign AI. vTaiwan provides the participatory model, while Murmi helps the room surface claims, map agreement and disagreement, and refine the results together.</p>
+          <p>vTaiwan brings government, experts, businesses, and citizens into a shared process that combines online participation with in-person deliberation. Rather than making policy decisions, it helps diverse participants clarify competing positions and develop recommendations that can inform policy.</p>
+          <div class="vtaiwan-process">
+            <span class="vtaiwan-kicker">Process</span>
+            <p>Frame issues &rarr; Gather input &rarr; Deliberate &rarr; Develop recommendations</p>
+          </div>
+          <dl class="vtaiwan-values">
+            <div><dt>Openness</dt><dd>Transparent information and an accountable process</dd></div>
+            <div><dt>Collaboration</dt><dd>Broad participation and constructive dialogue</dd></div>
+            <div><dt>Co-creation</dt><dd>Shared problem-solving and practical outcomes</dd></div>
+          </dl>
         </div>
-
-        <ol class="vt-process">
-          <li style="--i:0"><span class="vt-n">01</span><span class="vt-t">Frame issues</span></li>
-          <li style="--i:1"><span class="vt-n">02</span><span class="vt-t">Gather input</span></li>
-          <li style="--i:2"><span class="vt-n">03</span><span class="vt-t">Deliberate</span></li>
-          <li style="--i:3"><span class="vt-n">04</span><span class="vt-t">Develop recommendations</span></li>
-        </ol>
-
-
         <a class="murmi-link" href="https://www.vtaiwan.tw/intro" target="_blank" rel="noopener">Explore vTaiwan <span class="arr">&rarr;</span></a>
+      </div>
+
+      <div class="facilitator-strip newsllm-strip" id="newsllm">
+        <div class="facilitator-heading">
+          <div class="facilitator-heading-copy">
+            <span class="facilitator-label">A case from Taiwan</span>
+            <h3>Taiwan Public Media NewsLLM</h3>
+          </div>
+          <div class="newsllm-title-panel">
+            <img src="images/pts-logo-eng.png" width="1044" height="900" loading="lazy" alt="Public Television Service, Taiwan">
+          </div>
+        </div>
+        <div class="facilitator-body">
+          <p class="newsllm-lead">As generative AI increasingly decides how the world is told, media organizations are among the first to sense what is at stake: whose language, whose history, and whose memory gets written into the next generation&rsquo;s knowledge base will shape how a society is understood.</p>
+          <details class="newsllm-more">
+            <summary><span class="read-more">Read more</span><span class="read-less">Read less</span><span class="newsllm-more-mark" aria-hidden="true">&rsaquo;</span></summary>
+            <div class="newsllm-more-content">
+              <div class="newsllm-more-content-inner">
+                <p>In Taiwan, an initiative led by the Taiwan Broadcasting System and joined by eight public media organizations, the <em>Taiwan Public Media NewsLLM</em> project, is trying to answer this (Taiwan Broadcasting System, PTS, CTS, the Central News Agency, Radio Taiwan International, Taigi TV, Hakka TV, Taiwan Indigenous Television, together with the Indigenous Peoples Cultural Foundation). They are drawing on three decades of exclusively licensed news, documentaries, and traditional opera, along with audio and text in Taiwan&rsquo;s Indigenous languages, Taigi, and Hakka, a &ldquo;Taiwanese memory&rdquo; that ordinary corpora can neither buy nor crawl, and gathering it into an AI that is traceable, verifiable, and rich in historical depth. This is a path that does not compete on scale or compute, but leads instead with cultural depth and trustworthy sources, so that the AI remembers how Taiwan describes and understands itself.</p>
+                <p>For public media, this is a natural extension of public duty. When information is produced and circulated by AI, what is unsettled is the very foundation of trust in a democratic society. In choosing verifiable records as their bedrock, these organizations are not merely supplying data. They are helping to define what kind of answer deserves to be trusted, safeguarding that trust and, with it, a healthy media ecosystem.</p>
+                <p>And this quickly points to a larger problem. Today&rsquo;s AI is converging toward an &ldquo;average.&rdquo; In pursuing the greatest common denominator across languages and markets, it quietly flattens the languages, memories, and trust particular to each place. No matter how large, a general-purpose model has no commercial incentive to understand any single culture&rsquo;s historical context, institutional distinctions, or shifts in meaning across generations. As a result, this generation&rsquo;s experience of a society is going missing from the knowledge infrastructure of the next.</p>
+                <p>This has never been Taiwan&rsquo;s predicament alone. Every minority language, every marginalized community, every piece of local memory the mainstream market declines to price faces the same risk. The heart of &ldquo;sovereign AI&rdquo; was never about who commands the most compute or the largest model, but about whether a community can decide for itself: in what language its AI speaks, whose history it remembers, and whose values it is aligned to. We offer this effort, led by Taiwan Broadcasting System, as a demonstration of a capability the global giants have no commercial reason to build, yet communities everywhere urgently need.</p>
+                <p>This workshop exists to ask, together: when global models inevitably shape every local life, how can a community retain the capacity to define its own narrative, values, and future? We believe that answer must be defined by those who care about it, not least the media that have long spoken for the public interest. We warmly invite everyone who shares this concern to join the conversation, and to walk this road with us.</p>
+              </div>
+            </div>
+          </details>
+        </div>
       </div>
     </section>
 
     <section id="cfp" class="cfp">
-      <div class="section-head"><span class="n">v.</span><h2>Call for Papers</h2></div>
+      <div class="section-head"><span class="n">vi.</span><h2>Call for Papers</h2></div>
       <p>This workshop invites researchers and practitioners to rethink sovereign AI through the lens of human-AI collaboration, interaction, and governance: when global models inevitably shape local lives, how can communities retain the capacity to define their own narratives, values, and collective futures?</p>
 
       <p>We welcome contributions that advance, critique, or reimagine sovereign AI through three complementary paths including <strong>technical</strong> (models, data, safety, and evaluation), <strong>design</strong> (interaction, oversight, and intervention), and <strong>institutional</strong> (law, policy, and governance). We especially encourage work that crosses these boundaries. We particularly welcome submissions from researchers and practitioners in <strong>AI, HCI, law and public policy, government, journalism, civil society, open-source communities</strong>, and related fields.</p>
@@ -860,9 +940,11 @@
     </section>
 
     <section id="organizers">
-      <div class="section-head"><span class="n">vi.</span><h2>Organizers</h2></div>
+      <div class="section-head"><span class="n">vii.</span><h2>Organizers</h2></div>
 
-      <div class="organizers-panel">
+      <div class="roster-group">
+        <h3 class="roster-group-title">Workshop Organizers</h3>
+        <div class="organizers-panel">
         <div class="organizers-grid">
           <div class="organizer">
             <div class="photo" style="background-image:url('images/people/Ku.JPG');background-position:center top"></div>
@@ -890,13 +972,11 @@
           </div>
         </div>
       </div>
+      </div>
 
-    </section>
-
-    <section id="committee">
-      <div class="section-head"><span class="n">vii.</span><h2>Organizing Committee</h2></div>
-
-      <div class="organizers-panel">
+      <div class="roster-group" id="committee">
+        <h3 class="roster-group-title">Organizing Committee</h3>
+        <div class="organizers-panel">
         <div class="organizers-grid">
           <div class="organizer">
             <div class="photo" style="background-image:url('images/people/Copple.JPG');background-position:center -1.5px"></div>
@@ -920,6 +1000,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
 
@@ -1020,6 +1101,56 @@
           if(!isPinned()) d.open = false;   // re-check: state may have changed
         }, 140);
       });
+    });
+  })();
+
+  // NewsLLM disclosure: the control remains at the end while the copy contracts,
+  // and the viewport follows the disclosure's stable top edge back up the page.
+  (function(){
+    var details = document.querySelector('.newsllm-more');
+    if(!details) return;
+    var summary = details.querySelector('summary');
+    var content = details.querySelector('.newsllm-more-content');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var duration = 520;
+
+    summary.addEventListener('click', function(e){
+      if(reduceMotion.matches || details.classList.contains('is-animating')) return;
+      e.preventDefault();
+      details.classList.add('is-animating');
+
+      if(!details.open){
+        details.classList.add('is-opening');
+        details.open = true;
+        content.getBoundingClientRect();
+        requestAnimationFrame(function(){
+          details.classList.remove('is-opening');
+          window.setTimeout(function(){ details.classList.remove('is-animating'); }, duration);
+        });
+        return;
+      }
+
+      var anchorTop = summary.getBoundingClientRect().top;
+      var startedAt = performance.now();
+      details.classList.add('is-closing');
+      document.documentElement.classList.add('newsllm-collapsing');
+
+      // Keep the bottom control visually anchored while the copy above it gets
+      // shorter. The equal-and-opposite scroll makes the page travel upward with
+      // the collapsing content instead of jumping to the following section.
+      var followCollapse = function(now){
+        var movement = summary.getBoundingClientRect().top - anchorTop;
+        if(Math.abs(movement) > .25) window.scrollBy(0, movement);
+        if(now - startedAt < duration + 80) requestAnimationFrame(followCollapse);
+      };
+      requestAnimationFrame(followCollapse);
+
+      window.setTimeout(function(){
+        details.open = false;
+        details.classList.remove('is-closing','is-animating');
+        document.documentElement.classList.remove('newsllm-collapsing');
+        summary.focus({preventScroll:true});
+      }, duration);
     });
   })();
 
