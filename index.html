@@ -131,19 +131,21 @@
 
   /* ---------------- Content ---------------- */
   .content{flex:1;min-width:0}
+  .content::before{
+    content:'';display:block;aspect-ratio:16/9;margin:0 0 -1rem auto;max-width:82.5rem;
+    background:url(images/sai-workshop-hero-image.jpg) top right / contain no-repeat;
+  }
   .hero{padding:92px 48px 78px;max-width:var(--wide);position:relative}
   .eyebrow{color:var(--faint);margin-bottom:22px;display:block}
   /* "The First Workshop on" is scaffolding; the subject is the headline. Two
      sizes inside one h1 so the eye lands on the subject first. */
+  .hero .eyebrow time{color:var(--navy-soft);font-weight:600;}
   .hero h1{
     font-weight:560;line-height:1.14;letter-spacing:-.022em;text-wrap:balance;
-    margin-bottom:30px;color:var(--navy);font-variant-numeric:oldstyle-nums;
+    margin-bottom:30px;font-family:var(--rounded);font-weight:300;
     font-size:clamp(33px,4.3vw,54px);max-width:24ch;
   }
-  .hero h1 .h1-lead{
-    display:block;font-size:.38em;font-weight:400;font-style:italic;
-    letter-spacing:.005em;color:var(--faint);margin-bottom:.5em;
-  }
+  .hero h1 em{color:var(--navy);font-style:normal;font-weight:600;}
   .hero .sub{
     color:var(--muted);font-size:17px;line-height:1.75;max-width:60ch;
     text-wrap:pretty;padding-left:20px;border-left:2px solid var(--line);
@@ -153,8 +155,8 @@
 
   .section-head{display:flex;align-items:baseline;gap:18px;margin-bottom:30px}
   .section-head .n{
-    color:var(--navy);opacity:.3;font-size:26px;flex:0 0 auto;
-    line-height:1;min-width:44px;
+    color:var(--navy);opacity:.3;font-size:1.675rem;flex:0 0 auto;
+    line-height:1;min-width:1.25em;
   }
   h2{font-size:31px;font-weight:600;letter-spacing:-.021em;color:var(--navy);line-height:1.15}
   .lede{color:var(--muted);font-size:15.5px;max-width:74ch;margin-bottom:20px;text-wrap:pretty}
@@ -530,6 +532,7 @@
   }
 
   @media (min-width:1240px){
+    .content::before{margin-bottom:-6rem;}
     .hero,section,footer{margin-left:6vw}
   }
 
@@ -549,7 +552,7 @@
     }
     .mobile-topbar .brand-mini{
       display:flex;align-items:center;gap:9px;
-      color:var(--navy);font-family:var(--serif);font-weight:520;font-size:15.5px;
+      color:var(--navy-deep);font-family:var(--rounded);font-weight:500;font-size:1rem;
       text-decoration:none;
     }
     .mobile-topbar .brand-mini svg{display:block;flex:none}
@@ -711,9 +714,9 @@
 
   <div class="content">
     <div class="hero">
-      <span class="eyebrow">Half-day workshop with HCOMP 2026</span>
-      <h1><span class="h1-lead">The First Workshop on</span>Sovereign AI for Collaborative and Pluralistic AI Ecosystems</h1>
-      <p class="sub">As today's AI ecosystem is shaped by models, data, and compute concentrated in a few global institutions, discussions of &ldquo;sovereign AI&rdquo; are often reduced to a question of infrastructure. This workshop asks a deeper question: who holds the power to decide what stories AI tells, whose communities it represents, and whose values it is aligned to?</p>
+      <div class="eyebrow"><time datetime="2026-09-27">September 27th, 2026</time> Virginia Tech, Washington, D.C.</div>
+      <h1>The First Workshop on <em>Sovereign AI</em> for Collaborative and Pluralistic AI Ecosystems</h1>
+      <p class="sub">As today’s AI ecosystem is shaped by models, data, and compute concentrated in a few global institutions, discussions of &ldquo;sovereign AI&rdquo; are often reduced to a question of infrastructure. This workshop asks a deeper question: who holds the power to decide what stories AI tells, whose communities it represents, and whose values it is aligned to?</p>
     </div>
 
     <section id="overview">
