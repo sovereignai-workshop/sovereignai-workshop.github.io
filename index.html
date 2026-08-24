@@ -27,8 +27,9 @@
     --paper-alt:#f4f6fa;
     --serif:'Source Serif 4',Georgia,serif;
     --sans:'Instrument Sans',system-ui,sans-serif;
-    --sidebar-w:264px;
+    --sidebar-w:clamp(268px, 20vw, 306px);
     --max:920px;
+    --wide:1080px;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -67,8 +68,10 @@
       radial-gradient(120% 60% at 0% 0%, rgba(41,78,152,0.5), transparent 55%),
       linear-gradient(172deg, var(--navy-soft) 0%, var(--navy) 45%, var(--navy-deep) 100%);
     box-shadow:inset -1px 0 0 rgba(255,255,255,0.06);
-    position:sticky;top:0;height:100dvh;padding:44px 36px 40px;
+    position:sticky;top:0;height:100dvh;padding:44px 30px 38px;
     display:flex;flex-direction:column;justify-content:space-between;
+    /* short or scaled displays must scroll rather than clip the facts block */
+    overflow-y:auto;overscroll-behavior:contain;
   }
   .brand-link{display:block;text-decoration:none;color:inherit}
   .brand .mark-shape{display:block;margin-bottom:22px;opacity:.85}
@@ -82,12 +85,12 @@
   .sidebar .tag a{color:rgba(255,255,255,0.68);text-decoration:none;text-underline-offset:2px}
   .sidebar .tag a:hover{color:#fff;text-decoration:underline}
 
-  .sidebar nav{margin-top:56px;display:flex;flex-direction:column}
+  .sidebar nav{margin-top:44px;display:flex;flex-direction:column}
   .sidebar nav a{
     color:rgba(255,255,255,0.62);text-decoration:none;
     font-size:13.5px;font-weight:450;letter-spacing:.008em;
-    display:grid;grid-template-columns:26px 1fr;align-items:baseline;
-    padding:8px 0 8px 17px;margin-left:-18px;
+    display:grid;grid-template-columns:28px 1fr;align-items:baseline;
+    padding:9px 0 9px 15px;margin-left:-16px;
     border-left:1px solid transparent;
     transition:color .22s cubic-bezier(.16,1,.3,1),border-color .22s cubic-bezier(.16,1,.3,1);
   }
@@ -97,7 +100,7 @@
   .sidebar nav a.active{color:#fff;border-left-color:#fff}
   .sidebar nav a.active .n{color:rgba(255,255,255,0.85)}
 
-  .side-foot{display:flex;flex-direction:column;gap:26px}
+  .side-foot{display:flex;flex-direction:column;gap:22px;padding-top:26px}
   .side-cta{
     display:flex;justify-content:space-between;align-items:center;
     text-decoration:none;color:#fff;
@@ -111,40 +114,58 @@
   .side-cta:hover .arr{transform:translateX(3px)}
   .side-cta:active{transform:translateY(1px)}
 
-  .facts{border-top:1px solid rgba(255,255,255,0.14);padding-top:22px}
-  .facts .fact{margin-bottom:15px}
+  .facts{border-top:1px solid rgba(255,255,255,0.14);padding-top:20px}
+  .facts .fact{margin-bottom:13px}
   .facts .fact:last-child{margin-bottom:0}
   .facts .fact dd a{color:inherit;text-underline-offset:3px;text-decoration-color:var(--faint)}
   .facts .fact dd a:hover{text-decoration-color:currentColor}
   .facts dt{color:rgba(255,255,255,0.42);margin-bottom:2px}
   .facts dd{
-    font-size:13px;font-weight:450;color:rgba(255,255,255,0.88);
-    line-height:1.5;
+    font-size:12.8px;font-weight:450;color:rgba(255,255,255,0.88);
+    line-height:1.55;text-wrap:pretty;
   }
 
   /* ---------------- Content ---------------- */
   .content{flex:1;min-width:0}
-  .hero{padding:96px 48px 72px;max-width:var(--max)}
-  .eyebrow{color:var(--faint);margin-bottom:24px;display:block}
+  .hero{padding:92px 48px 78px;max-width:var(--wide);position:relative}
+  .eyebrow{color:var(--faint);margin-bottom:22px;display:block}
+  /* "The First Workshop on" is scaffolding; the subject is the headline. Two
+     sizes inside one h1 so the eye lands on the subject first. */
   .hero h1{
-    font-weight:560;font-size:clamp(31px,4vw,43px);line-height:1.3;
-    letter-spacing:-.012em;text-wrap:balance;
-    margin-bottom:26px;color:var(--navy);
-    font-variant-numeric:oldstyle-nums;
+    font-weight:560;line-height:1.14;letter-spacing:-.022em;text-wrap:balance;
+    margin-bottom:30px;color:var(--navy);font-variant-numeric:oldstyle-nums;
+    font-size:clamp(33px,4.3vw,54px);max-width:24ch;
   }
-  .hero .sub{color:var(--muted);font-size:16.5px;line-height:1.8;max-width:72ch;text-wrap:pretty}
+  .hero h1 .h1-lead{
+    display:block;font-size:.38em;font-weight:400;font-style:italic;
+    letter-spacing:.005em;color:var(--faint);margin-bottom:.5em;
+  }
+  .hero .sub{
+    color:var(--muted);font-size:17px;line-height:1.75;max-width:60ch;
+    text-wrap:pretty;padding-left:20px;border-left:2px solid var(--line);
+  }
 
   section{padding:64px 48px;max-width:var(--max);border-top:1px solid var(--rule);scroll-margin-top:0}
 
-  .section-head{display:flex;align-items:baseline;gap:15px;margin-bottom:28px}
-  .section-head .n{color:var(--faint);font-size:15px;flex:0 0 auto}
-  h2{font-size:25px;font-weight:560;letter-spacing:-.008em;color:var(--navy)}
+  .section-head{display:flex;align-items:baseline;gap:18px;margin-bottom:30px}
+  .section-head .n{
+    color:var(--navy);opacity:.3;font-size:26px;flex:0 0 auto;
+    line-height:1;min-width:44px;
+  }
+  h2{font-size:31px;font-weight:600;letter-spacing:-.021em;color:var(--navy);line-height:1.15}
   .lede{color:var(--muted);font-size:15.5px;max-width:74ch;margin-bottom:20px;text-wrap:pretty}
 
   /* topic entries - sans titles under serif structure */
-  .entry{display:grid;grid-template-columns:46px 1fr;gap:18px;padding:0 0 30px}
+  .entry{display:grid;grid-template-columns:82px 1fr;gap:24px;padding:0 0 38px;position:relative}
   .entry:last-child{padding-bottom:0}
-  .entry .num{color:var(--navy);font-size:15px;padding-top:1px}
+  .entry .num{
+    font-family:var(--serif);font-variant-numeric:lining-nums;font-style:normal;
+    font-size:46px;line-height:.9;font-weight:400;letter-spacing:-.03em;
+    color:var(--navy);opacity:.22;padding-top:2px;
+    transition:opacity .3s cubic-bezier(.16,1,.3,1);
+  }
+  .entry:hover .num,.entry:focus-within .num{opacity:.62}
+  .entry h3{font-size:17.5px}
   .entry h3{
     font-family:var(--sans);font-size:15.5px;font-weight:600;letter-spacing:-.008em;
     margin-bottom:7px;color:var(--ink);text-wrap:balance;
@@ -178,6 +199,9 @@
     font-family:var(--serif);font-style:italic;font-variant-numeric:oldstyle-nums;
     font-size:13px;font-weight:400;color:var(--faint);
   }
+  /* a pinned disclosure stays open after the pointer leaves, so it says so */
+  .eg-toggle.pinned summary{color:var(--navy)}
+  .eg-toggle.pinned .chev{transform:rotate(90deg)}
   .tags{list-style:none;display:flex;flex-wrap:wrap;gap:5px;margin-top:12px;padding-bottom:2px}
   .tags li{
     font-size:12.5px;line-height:1.45;color:var(--muted);
@@ -215,7 +239,32 @@
   table.dates tr.key td{color:var(--navy)}
   table.dates tr.key td:first-child{color:var(--navy);font-style:normal;font-weight:600}
   table.dates tr.key td:last-child{font-weight:700;font-size:15px}
-  .dates-note{font-size:13px;color:var(--faint);margin-top:14px}
+  .dates-note{font-size:13px;color:var(--faint);margin-top:18px}
+
+  /* The deadline is the only thing on this page a reader must act on, so it is
+     the only block that gets the navy surface outside the session prompt. */
+  .deadline{margin-top:32px;padding-top:22px;border-top:2px solid var(--navy)}
+  .dl-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:26px}
+  .dl-label{
+    grid-column:1;font-size:10.5px;font-weight:550;letter-spacing:.17em;
+    text-transform:uppercase;color:var(--faint);
+  }
+  /* .cfp p sets --ink, which out-specifies the white inherited from .deadline,
+     so every text colour inside this panel is stated explicitly. */
+  .cfp .dl-date{
+    grid-column:1;margin-top:7px;margin-bottom:0;color:var(--navy);
+    font-family:var(--serif);font-weight:500;
+    font-size:clamp(32px,4.2vw,46px);line-height:1;letter-spacing:-.022em;
+    display:flex;align-items:baseline;gap:13px;
+  }
+  .dl-yr{font-style:italic;font-size:.46em;color:var(--faint)}
+  .dl-head .btn{grid-column:2;grid-row:1/3;margin-top:0;align-self:end}
+  .dl-rest{
+    margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  }
+  .dl-rest dt{font-size:10.5px;font-weight:550;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+  .cfp .dl-rest dd{margin-top:6px;font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums}
 
   .btn{
     display:inline-flex;align-items:center;gap:10px;
@@ -254,18 +303,21 @@
   }
   .schedule-item{
     display:grid;grid-template-columns:112px minmax(0,1fr);gap:18px;
-    padding:11px 0;
+    padding:13px 0;border-top:1px solid var(--line);
+    transition:background-color .25s cubic-bezier(.16,1,.3,1);
   }
-  .schedule-item:first-of-type{padding-top:16px}
+  .schedule-item:first-of-type{padding-top:16px;border-top:none}
+  .schedule-item:hover{background:var(--paper-alt)}
   .schedule-time{
     font-family:var(--serif);font-style:italic;font-size:14px;
     font-variant-numeric:oldstyle-nums;color:var(--navy);white-space:nowrap;
   }
-  .schedule-title{font-size:14px;font-weight:600;line-height:1.45;color:var(--ink)}
+  .schedule-title{font-size:14.5px;font-weight:600;line-height:1.45;color:var(--ink)}
   .schedule-title a{color:inherit;text-decoration-color:rgba(10,36,82,.32);text-underline-offset:3px}
   .schedule-title a:hover{text-decoration-color:currentColor}
   .schedule-detail{margin-top:3px;color:var(--muted);font-size:12.5px;line-height:1.55}
   .schedule-item.break .schedule-title{font-weight:450;color:var(--muted)}
+  .schedule-group{max-width:520px}
   .interest{
     margin-top:38px;padding:24px 28px;background:var(--paper-alt);
     border-left:2px solid var(--navy);
@@ -277,62 +329,61 @@
 
   /* interactive session - an editorial feature inside the journal system */
   #interactive{
-    max-width:1040px;padding-top:82px;padding-bottom:88px;overflow:hidden;
+    max-width:1040px;padding-top:64px;padding-bottom:68px;overflow:hidden;
     container-type:inline-size;
   }
   .interactive-intro{max-width:820px}
   .interactive-intro .section-head{margin-bottom:0}
   .prompt-field{
-    margin:28px 0 68px;padding:42px 46px;
+    margin:26px 0 48px;padding:40px 42px;
     background:
-      linear-gradient(rgba(10,36,82,.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(10,36,82,.045) 1px, transparent 1px),
+      linear-gradient(rgba(10,36,82,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10,36,82,.05) 1px, transparent 1px),
       var(--paper-alt);
     background-size:34px 34px;
-    border-left:2px solid var(--navy);
   }
   .prompt-field blockquote{
-    max-width:17ch;font-family:var(--sans);font-size:clamp(27px,4.1vw,48px);
-    font-weight:560;letter-spacing:-.037em;line-height:1.1;color:var(--ink);
+    max-width:16ch;font-family:var(--sans);font-size:clamp(28px,3.9vw,44px);
+    font-weight:600;letter-spacing:-.04em;line-height:1.06;color:var(--navy);
     text-wrap:balance;
   }
-  .prompt-field p{max-width:63ch;margin-top:24px;color:var(--muted);font-size:15px;line-height:1.72}
+  .prompt-field p{max-width:58ch;margin-top:22px;color:var(--muted);font-size:14.5px;line-height:1.7}
 
-  .deliberation-frame{display:block;margin-bottom:76px}
+  .deliberation-frame{display:block;margin-bottom:48px}
   .frame-copy{max-width:760px}
   .frame-copy h3,.flow-block h3,.outcomes h3{
     font-family:var(--sans);font-size:22px;font-weight:620;letter-spacing:-.025em;
     line-height:1.25;color:var(--navy);text-wrap:balance;
   }
   .frame-copy>p{max-width:54ch;margin-top:14px;color:var(--muted);font-size:14.5px;line-height:1.75}
-  .working-questions{max-width:720px;margin-top:32px;display:grid;gap:0}
+  .working-questions{max-width:720px;margin-top:22px;display:grid;gap:0}
   .working-question{
-    display:grid;grid-template-columns:52px minmax(0,1fr);gap:18px;
-    padding:0 0 18px;
+    display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;
+    padding:0 0 13px;
   }
   .working-question:last-child{padding-bottom:0}
   .working-question .num{font-size:14px;color:var(--navy)}
   .working-question p{color:var(--ink);font-size:15px;line-height:1.65;text-wrap:pretty}
-  .murmi-visual{max-width:640px;margin:52px 0 0 auto}
+  .murmi-visual{max-width:640px;margin:36px 0 0 auto}
   .murmi-screens{
     display:grid;grid-template-columns:1fr 1fr;gap:12px;
   }
   .murmi-screens img{display:block;width:100%;height:auto;border-radius:2px;background:#fff}
   .murmi-screens img:last-child{transform:translateY(26px)}
   .murmi-visual figcaption{
-    margin-top:38px;color:var(--faint);font-family:var(--serif);font-style:italic;
+    margin-top:24px;color:var(--faint);font-family:var(--serif);font-style:italic;
     font-size:13.5px;line-height:1.6;
   }
   .murmi-visual figcaption a{color:var(--navy);text-underline-offset:3px}
   .murmi-visual figcaption a:hover{text-decoration:none}
 
-  .flow-block{margin-bottom:72px}
+  .flow-block{margin-bottom:48px}
   .session-flow{
-    list-style:none;margin-top:26px;display:grid;grid-template-columns:1fr;
+    list-style:none;margin-top:22px;display:grid;grid-template-columns:1fr;
   }
   .session-flow li{
     display:grid;grid-template-columns:52px minmax(0,1fr);gap:18px;
-    min-height:0;padding:0 0 22px;
+    min-height:0;padding:0 0 16px;
   }
   .session-flow li:last-child{padding-bottom:0}
   .session-flow li>div{
@@ -345,7 +396,7 @@
 
   .outcomes{
     display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
-    gap:52px;align-items:start;margin-bottom:70px;
+    gap:52px;align-items:start;margin-bottom:48px;
   }
   .outcomes-copy p{max-width:40ch;margin-top:13px;color:var(--muted);font-size:14px;line-height:1.7}
   .outcome-list{display:grid;grid-template-columns:1fr;gap:20px}
@@ -356,7 +407,7 @@
   .outcome-list dd{margin-top:5px;color:var(--muted);font-size:12.8px;line-height:1.58}
 
   /* ---- vTaiwan: a named sub-part of the session, not an aside ---- */
-  .vtaiwan-block{padding-top:30px;border-top:1px solid var(--navy)}
+  .vtaiwan-block{padding-top:26px;border-top:1px solid var(--navy)}
   .vt-head{display:flex;align-items:flex-start;justify-content:space-between;gap:30px}
   .facilitator-label{
     display:block;margin-bottom:7px;color:var(--faint);font-size:10.5px;
@@ -367,12 +418,12 @@
   .vt-logo img{display:block;width:100%;height:auto}
 
   /* two columns so the prose stops running as one narrow 54ch stack */
-  .vt-body{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:38px}
+  .vt-body{margin-top:18px;max-width:76ch}
   .vt-body p{color:var(--muted);font-size:14px;line-height:1.72}
 
   /* the process is a sequence, so it is drawn as one */
   .vt-process{
-    list-style:none;margin-top:38px;display:grid;grid-template-columns:repeat(4,1fr);
+    list-style:none;margin-top:30px;display:grid;grid-template-columns:repeat(4,1fr);
     gap:0;position:relative;
   }
   .vt-process::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--line)}
@@ -387,10 +438,7 @@
   }
   .vt-t{display:block;font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.4}
 
-  .vt-values{margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
-  .vt-values dt{font-size:13px;font-weight:650;color:var(--navy);line-height:1.4}
-  .vt-values dd{margin-top:5px;color:var(--muted);font-size:12.8px;line-height:1.6;max-width:30ch}
-  .vtaiwan-block .murmi-link{margin-top:34px}
+  .vtaiwan-block .murmi-link{margin-top:28px}
 
   .murmi-link{
     display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
@@ -500,9 +548,20 @@
     .facts .fact{margin-bottom:0}
 
     .hero,section,footer{padding-left:24px;padding-right:24px}
-    .hero{padding-top:48px}
+    .hero{padding-top:44px;padding-bottom:52px}
+    .hero .sub{padding-left:15px;font-size:15.5px}
+    .section-head{gap:12px}
+    .section-head .n{font-size:19px;min-width:30px}
+    h2{font-size:24px}
+    .entry{grid-template-columns:52px 1fr;gap:16px}
+    .entry .num{font-size:32px}
+    .prompt-field{padding:34px 24px}
+    .deadline{padding:28px 24px 26px}
+    .dl-head{grid-template-columns:1fr;align-items:start;gap:0}
+    .dl-head .btn{grid-column:1;grid-row:auto;margin-top:22px}
+    .dl-rest{grid-template-columns:1fr;gap:16px;margin-top:26px}
     section{scroll-margin-top:58px}
-    .entry{grid-template-columns:1fr;gap:6px;padding-bottom:26px}
+
     .schedule-groups{grid-template-columns:1fr;gap:34px;max-width:none}
     .schedule-item{grid-template-columns:98px minmax(0,1fr)}
     #interactive{padding-top:64px;padding-bottom:68px}
@@ -520,8 +579,7 @@
     .vt-process{grid-template-columns:1fr 1fr;gap:0 0}
     .vt-process li{padding:16px 18px 18px 0}
     .vt-process li:nth-child(n+3){border-top:1px solid var(--line);margin-top:4px}
-    .vt-values{grid-template-columns:1fr;gap:16px}
-    .vt-values dd{max-width:none}
+
     .organizers-grid{grid-template-columns:1fr;gap:32px}
     .speakers-grid{grid-template-columns:1fr;gap:32px}
   }
@@ -538,7 +596,7 @@
     }
     .frame-copy,.working-questions{max-width:none}
     .working-question{grid-template-columns:38px minmax(0,1fr);gap:14px}
-    .murmi-visual{max-width:none;margin:148px 0 0}
+    .murmi-visual{max-width:none;margin:52px 0 0}
   }
 
   /* Printing and expanded search should never lose content to a reveal state. */
@@ -596,7 +654,7 @@
       <a class="side-cta" href="#cfp">Submit a paper <span class="arr">&rarr;</span></a>
       <dl class="facts">
         <div class="fact"><dt>Date</dt><dd>September 27, 2026</dd></div>
-        <div class="fact"><dt>Location</dt><dd><a href="https://maps.app.goo.gl/2nR8BNDuSYrZyFL17">Virginia Tech Academic Building One, near Washington, DC</a></dd></div>
+        <div class="fact"><dt>Location</dt><dd><a href="https://maps.app.goo.gl/2nR8BNDuSYrZyFL17">Virginia Tech Academic Building One<br>Washington, DC</a></dd></div>
         <div class="fact"><dt>Format</dt><dd>In-person</dd></div>
       </dl>
     </div>
@@ -605,7 +663,7 @@
   <div class="content">
     <div class="hero">
       <span class="eyebrow">Full-day workshop with HCOMP 2026</span>
-      <h1>The First Workshop on Sovereign AI for Collaborative and Pluralistic AI Ecosystems</h1>
+      <h1><span class="h1-lead">The First Workshop on</span>Sovereign AI for Collaborative and Pluralistic AI Ecosystems</h1>
       <p class="sub">As today's AI ecosystem is shaped by models, data, and compute concentrated in a few global institutions, discussions of &ldquo;sovereign AI&rdquo; are often reduced to a question of infrastructure. This workshop asks a deeper question: who holds the power to decide what stories AI tells, whose communities it represents, and whose values it is aligned to?</p>
     </div>
 
@@ -648,7 +706,7 @@
 
       <div class="speakers-grid">
         <div class="speaker">
-          <div class="photo" style="background-image:url('images/people/Senjuti-Dutta.jpg');background-position:center 0.2px"></div>
+          <div class="photo" style="background-image:url('images/people/Senjuti-Dutta.jpg');background-position:center 0px"></div>
           <div class="id">
             <h3>Senjuti Dutta</h3>
             <p class="role">Postdoctoral Fellow, Center for the Dynamics of Social Complexity (DySoC), University of Tennessee</p>
@@ -678,13 +736,13 @@
       <div class="schedule-groups">
         <div class="schedule-group">
           <h3>Program</h3>
-          <div class="schedule-item"><time class="schedule-time">15 min</time><div><div class="schedule-title">Opening</div></div></div>
-          <div class="schedule-item"><time class="schedule-time">45 min</time><div><div class="schedule-title">Keynote</div></div></div>
-          <div class="schedule-item break"><time class="schedule-time">30 min</time><div><div class="schedule-title">Coffee Break &amp; Oral/Poster Session</div></div></div>
-          <div class="schedule-item"><time class="schedule-time">45 min</time><div><div class="schedule-title">Keynote</div></div></div>
-          <div class="schedule-item break"><time class="schedule-time">15 min</time><div><div class="schedule-title">Coffee Break</div></div></div>
-          <div class="schedule-item"><time class="schedule-time">45 min</time><div><div class="schedule-title"><a href="#interactive">Hacking Sovereign AI</a></div><div class="schedule-detail">Deliberative democracy with Murmi.</div></div></div>
-          <div class="schedule-item"><time class="schedule-time">15 min</time><div><div class="schedule-title">Closing</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">5 min</time><div><div class="schedule-title">Opening</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">40 min</time><div><div class="schedule-title">Keynote Speaker 1</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">40 min</time><div><div class="schedule-title">Keynote Speaker 2</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">45 min</time><div><div class="schedule-title">Oral (Poster + Lightning Talks)</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">50+ min</time><div><div class="schedule-title"><a href="#interactive">Hacking Sovereign AI</a></div><div class="schedule-detail">Deliberative democracy with Murmi.</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">45 min</time><div><div class="schedule-title">Panel</div></div></div>
+          <div class="schedule-item"><time class="schedule-time"></time><div><div class="schedule-title">Closing</div></div></div>
         </div>
       </div>
 
@@ -758,8 +816,7 @@
         </div>
 
         <div class="vt-body">
-          <p>This session adapts vTaiwan&rsquo;s approach to open public-policy deliberation for the design and evaluation of Sovereign AI. vTaiwan provides the participatory model, while Murmi helps the room surface claims, map agreement and disagreement, and refine the results together.</p>
-          <p>vTaiwan brings government, experts, businesses, and citizens into a shared process that combines online participation with in-person deliberation. Rather than making policy decisions, it helps diverse participants clarify competing positions and develop recommendations that can inform policy.</p>
+          <p>vTaiwan brings government, experts, businesses, and citizens into one process that pairs online participation with in-person deliberation. It does not make policy decisions; it helps participants clarify competing positions and develop recommendations that can inform policy. This session adapts that model for the design and evaluation of Sovereign AI.</p>
         </div>
 
         <ol class="vt-process">
@@ -769,11 +826,6 @@
           <li style="--i:3"><span class="vt-n">04</span><span class="vt-t">Develop recommendations</span></li>
         </ol>
 
-        <dl class="vt-values">
-          <div><dt>Openness</dt><dd>Transparent information and an accountable process</dd></div>
-          <div><dt>Collaboration</dt><dd>Broad participation and constructive dialogue</dd></div>
-          <div><dt>Co-creation</dt><dd>Shared problem-solving and practical outcomes</dd></div>
-        </dl>
 
         <a class="murmi-link" href="https://www.vtaiwan.tw/intro" target="_blank" rel="noopener">Explore vTaiwan <span class="arr">&rarr;</span></a>
       </div>
@@ -792,14 +844,19 @@
         <p>See <a href="https://hcomp.acm.org/2026/submit.html#general">General Submission Instructions</a> for the official ACM templates and formatting policies.</p>
       </div>
 
-      <table class="dates">
-        <tr class="key"><td>Paper submission deadline</td><td><strong>August 30, 2026</strong></td></tr>
-        <tr><td>Acceptance notification</td><td>September 6, 2026</td></tr>
-        <tr><td>Workshop day</td><td>September 27, 2026</td></tr>
-      </table>
-      <p class="dates-note">All deadlines are 11:59&#8202;pm, Anywhere on Earth (AoE).</p>
+      <div class="deadline">
+        <div class="dl-head">
+          <span class="dl-label">Paper submission deadline</span>
+          <p class="dl-date"><span>August 31</span><span class="dl-yr">2026</span></p>
+          <a class="btn" href="https://easychair.org/conferences/?conf=sovereignai2026">Submit via EasyChair<span class="arr">&rarr;</span></a>
+        </div>
+        <dl class="dl-rest">
+          <div><dt>Acceptance notification</dt><dd>September 6, 2026</dd></div>
+          <div><dt>Workshop day</dt><dd>September 27, 2026</dd></div>
+          <div><dt>Deadlines close</dt><dd>11:59&#8202;pm Anywhere on Earth</dd></div>
+        </dl>
+      </div>
       <p class="dates-note">Papers in our workshop are non-archival; accepted work may be submitted or published elsewhere without restriction.</p>
-      <a class="btn" href="https://easychair.org/conferences/?conf=sovereignai2026">Submit via EasyChair<span class="arr">&rarr;</span></a>
     </section>
 
     <section id="organizers">
@@ -927,6 +984,42 @@
           }
         });
       }, 1200);
+    });
+  })();
+
+  // Topic disclosures: hover previews, click pins. Only where a real pointer
+  // exists - on touch and for keyboard users the native click/Enter toggle is
+  // left completely alone, so the content is never hover-only.
+  (function(){
+    if(!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    document.querySelectorAll('.eg-toggle').forEach(function(d){
+      var summary = d.querySelector('summary');
+      var timer = null;
+      // The .pinned class is the only state. Keeping a parallel closure flag
+      // lets the two drift whenever something toggles `open` from outside -
+      // find-in-page expanding a match, say - and the control then sticks.
+      var isPinned = function(){ return d.classList.contains('pinned'); };
+
+      summary.addEventListener('click', function(e){
+        if(d.open && !isPinned()){          // opened by hover: clicking pins it
+          e.preventDefault();
+          d.classList.add('pinned');
+          return;
+        }
+        d.classList.toggle('pinned', !d.open);   // otherwise a plain toggle
+      });
+
+      d.addEventListener('mouseenter', function(){
+        clearTimeout(timer);
+        if(!isPinned()) d.open = true;
+      });
+      d.addEventListener('mouseleave', function(){
+        clearTimeout(timer);
+        if(isPinned()) return;
+        timer = setTimeout(function(){
+          if(!isPinned()) d.open = false;   // re-check: state may have changed
+        }, 140);
+      });
     });
   })();
 
