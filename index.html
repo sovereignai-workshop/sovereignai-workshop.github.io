@@ -22,6 +22,7 @@
     --muted:#596173;
     --faint:#8a90a0;
     --line:#e3e6ec;
+    --rule:#eceff4;   /* section hairline - lighter than --line, used only between sections */
     --paper:#fefefd;
     --paper-alt:#f4f6fa;
     --serif:'Source Serif 4',Georgia,serif;
@@ -133,7 +134,7 @@
   }
   .hero .sub{color:var(--muted);font-size:16.5px;line-height:1.8;max-width:72ch;text-wrap:pretty}
 
-  section{padding:68px 48px;max-width:var(--max);border-top:1px solid var(--line);scroll-margin-top:0}
+  section{padding:64px 48px;max-width:var(--max);border-top:1px solid var(--rule);scroll-margin-top:0}
 
   .section-head{display:flex;align-items:baseline;gap:15px;margin-bottom:28px}
   .section-head .n{color:var(--faint);font-size:15px;flex:0 0 auto}
@@ -141,8 +142,8 @@
   .lede{color:var(--muted);font-size:15.5px;max-width:74ch;margin-bottom:20px;text-wrap:pretty}
 
   /* topic entries - sans titles under serif structure */
-  .entry{display:grid;grid-template-columns:46px 1fr;gap:18px;padding:25px 0;border-top:1px solid var(--line)}
-  .lede + .entry,.section-head + .entry{border-top:none;padding-top:8px}
+  .entry{display:grid;grid-template-columns:46px 1fr;gap:18px;padding:0 0 30px}
+  .entry:last-child{padding-bottom:0}
   .entry .num{color:var(--navy);font-size:15px;padding-top:1px}
   .entry h3{
     font-family:var(--sans);font-size:15.5px;font-weight:600;letter-spacing:-.008em;
@@ -157,6 +158,9 @@
     color:var(--muted);font-size:15px;line-height:1.75;
     margin-top:8px;
   }
+  /* "Possible topics:" is a label inside an italic aside - roman so it doesn't
+     read as part of the sentence it introduces. */
+  .eg .lbl{font-style:normal;color:var(--faint)}
   .topics-note{
     font-family:var(--serif);font-style:italic;
     color:var(--muted);font-size:15px;line-height:1.75;
@@ -174,8 +178,8 @@
   .cfp-submissions p:last-child{margin-bottom:0}
 
   table.dates{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px}
-  table.dates tr+tr td{border-top:1px solid var(--line)}
-  table.dates td{padding:13px 0;color:var(--ink);font-variant-numeric:tabular-nums}
+  table.dates td{padding:8px 0;color:var(--ink);font-variant-numeric:tabular-nums}
+  table.dates tr.key td{padding-top:0}
   table.dates td:first-child{
     width:230px;color:var(--muted);
     font-family:var(--serif);font-style:italic;font-variant-numeric:oldstyle-nums;
@@ -199,11 +203,8 @@
   .btn:active{transform:translateY(1px)}
 
   /* confirmed speakers - shares the organizer card layout, no mail-style link row spacing change */
-  .speakers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:44px}
-  .speaker{display:flex;flex-direction:column;align-items:flex-start;padding:0 28px;position:relative}
-  .speaker:first-child{padding-left:0}
-  .speaker:last-child{padding-right:0}
-  .speaker:not(:first-child)::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:1px;background:var(--line)}
+  .speakers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;margin-bottom:48px}
+  .speaker{display:flex;flex-direction:column;align-items:flex-start}
   .speaker .photo{
     flex:none;width:96px;height:96px;border-radius:50%;background:var(--navy);
     background-size:cover;background-position:center;
@@ -217,17 +218,18 @@
 
   /* schedule */
   .schedule-intro{margin-bottom:34px;font-size:13px}
-  .schedule-groups{display:grid;grid-template-columns:1fr 1fr;gap:46px}
+  .schedule-groups{display:grid;grid-template-columns:1fr 1fr;gap:46px;max-width:600px}
   .schedule-group:only-child{grid-column:1/-1}
   .schedule-group h3{
     font-family:var(--sans);font-size:11px;font-weight:600;
     letter-spacing:.14em;text-transform:uppercase;color:var(--navy);
-    padding-bottom:12px;border-bottom:1px solid var(--navy);
+    padding-bottom:11px;border-bottom:1px solid var(--line);
   }
   .schedule-item{
     display:grid;grid-template-columns:112px minmax(0,1fr);gap:18px;
-    padding:18px 0;border-bottom:1px solid var(--line);
+    padding:11px 0;
   }
+  .schedule-item:first-of-type{padding-top:16px}
   .schedule-time{
     font-family:var(--serif);font-style:italic;font-size:14px;
     font-variant-numeric:oldstyle-nums;color:var(--navy);white-space:nowrap;
@@ -260,7 +262,7 @@
       linear-gradient(90deg, rgba(10,36,82,.045) 1px, transparent 1px),
       var(--paper-alt);
     background-size:34px 34px;
-    border-left:3px solid var(--navy);
+    border-left:2px solid var(--navy);
   }
   .prompt-field blockquote{
     max-width:17ch;font-family:var(--sans);font-size:clamp(27px,4.1vw,48px);
@@ -279,8 +281,9 @@
   .working-questions{max-width:720px;margin-top:32px;display:grid;gap:0}
   .working-question{
     display:grid;grid-template-columns:52px minmax(0,1fr);gap:18px;
-    padding:20px 0;border-top:1px solid var(--line);
+    padding:0 0 18px;
   }
+  .working-question:last-child{padding-bottom:0}
   .working-question .num{font-size:14px;color:var(--navy)}
   .working-question p{color:var(--ink);font-size:15px;line-height:1.65;text-wrap:pretty}
   .murmi-visual{max-width:640px;margin:52px 0 0 auto}
@@ -298,13 +301,13 @@
 
   .flow-block{margin-bottom:72px}
   .session-flow{
-    list-style:none;margin-top:30px;display:grid;grid-template-columns:1fr;
-    border-top:1px solid var(--navy);
+    list-style:none;margin-top:26px;display:grid;grid-template-columns:1fr;
   }
   .session-flow li{
     display:grid;grid-template-columns:52px minmax(0,1fr);gap:18px;
-    min-height:0;padding:24px 0;border-bottom:1px solid var(--line);
+    min-height:0;padding:0 0 22px;
   }
+  .session-flow li:last-child{padding-bottom:0}
   .session-flow li>div{
     display:grid;grid-template-columns:minmax(150px,.34fr) minmax(0,1fr);
     gap:34px;align-items:start;
@@ -315,7 +318,7 @@
 
   .outcomes{
     display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
-    gap:52px;align-items:start;margin-bottom:70px;padding-top:34px;border-top:1px solid var(--navy);
+    gap:52px;align-items:start;margin-bottom:70px;
   }
   .outcomes-copy p{max-width:40ch;margin-top:13px;color:var(--muted);font-size:14px;line-height:1.7}
   .outcome-list{display:grid;grid-template-columns:1fr;gap:20px}
@@ -340,7 +343,7 @@
   }
   .facilitator-strip h3{font-size:17px;font-weight:650;color:var(--ink);line-height:1.3}
   .facilitator-strip p{max-width:54ch;margin-top:6px;color:var(--muted);font-size:13px;line-height:1.6}
-  .vtaiwan-process{max-width:54ch;margin-top:15px;padding-top:13px;border-top:1px solid var(--line)}
+  .vtaiwan-process{max-width:54ch;margin-top:18px}
   .vtaiwan-kicker{
     display:block;color:var(--navy);font-size:10.5px;font-weight:650;
     letter-spacing:.1em;text-transform:uppercase;
@@ -361,31 +364,13 @@
   .facilitator-strip .murmi-link{grid-column:2;justify-self:start}
 
   /* organizers - elevated panel: the formal roster of record */
-  .organizers-panel{
-    background:
-      radial-gradient(140% 100% at 0% 0%, rgba(10,36,82,0.05), transparent 60%),
-      var(--paper-alt);
-    border-left:2px solid var(--navy);
-    padding:38px 40px;
-  }
-  /* roster breaks the reading measure - it is a table, not prose;
-     the section itself still opens with a divider the same length as every other section's */
-  #organizers{max-width:940px;border-top:none;padding-top:0}
-  #organizers::before{content:"";display:block;width:var(--max);max-width:100%;border-top:1px solid var(--line);padding-top:68px}
-  #committee{max-width:940px;border-top:none;padding-top:0}
-  #committee::before{content:"";display:block;width:var(--max);max-width:100%;border-top:1px solid var(--line);padding-top:36px}
-  #committee .organizers-panel{background:none;border-left:none;padding:0}
-  .organizers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-  .organizer{
-    display:flex;flex-direction:column;align-items:flex-start;
-    padding:0 28px;position:relative;
-  }
-  .organizer:first-child{padding-left:0}
-  .organizer:last-child{padding-right:0}
-  .organizer:not(:first-child)::before{
-    content:"";position:absolute;left:0;top:4px;bottom:4px;width:1px;
-    background:var(--line);
-  }
+  /* the roster is the record, not an aside - no panel chrome, just the grid */
+  .organizers-panel{padding:0}
+  /* Organizers and Committee are one roster read in two parts: full rule above the
+     first, none between them, so they group instead of reading as two sections. */
+  #committee{border-top:none;padding-top:12px}
+  .organizers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px}
+  .organizer{display:flex;flex-direction:column;align-items:flex-start}
   .organizer .photo{
     flex:none;
     width:96px;height:96px;border-radius:50%;
@@ -399,17 +384,7 @@
   .organizer .mail{display:inline-block;margin-top:9px;font-size:12.5px;color:var(--navy);text-underline-offset:3px}
   .organizer .mail:hover{text-decoration:none}
 
-  /* workshop team - a lighter, quieter roll call beneath the panel */
-  .team-block{margin-top:40px;max-width:600px}
-  .team-eyebrow{
-    display:block;color:var(--faint);margin-bottom:14px;
-    font-family:var(--sans);font-weight:500;
-    font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;
-  }
-  .team-list{color:var(--faint);font-size:13.5px;line-height:2}
-  .team-list strong{color:var(--muted);font-weight:600}
-
-  footer{padding:24px 48px 32px;max-width:var(--max);color:var(--faint);font-size:13px;border-top:1px solid var(--line);margin-top:12px}
+  footer{padding:26px 48px 40px;max-width:var(--max);color:var(--faint);font-size:13px;border-top:1px solid var(--rule);margin-top:24px}
   footer a{color:var(--muted);text-underline-offset:3px}
   footer a:hover{color:var(--navy)}
 
@@ -477,8 +452,8 @@
     .hero,section,footer{padding-left:24px;padding-right:24px}
     .hero{padding-top:48px}
     section{scroll-margin-top:58px}
-    .entry{grid-template-columns:1fr;gap:6px}
-    .schedule-groups{grid-template-columns:1fr;gap:34px}
+    .entry{grid-template-columns:1fr;gap:6px;padding-bottom:26px}
+    .schedule-groups{grid-template-columns:1fr;gap:34px;max-width:none}
     .schedule-item{grid-template-columns:98px minmax(0,1fr)}
     #interactive{padding-top:64px;padding-bottom:68px}
     .prompt-field{margin:24px 0 52px;padding:30px 26px;background-size:28px 28px}
@@ -492,19 +467,12 @@
     .facilitator-strip{grid-template-columns:1fr;gap:20px;padding:24px}
     .vtaiwan-logo-panel{width:180px;min-height:72px;padding:14px 12px}
     .facilitator-strip .murmi-link{grid-column:1}
-    .organizers-grid{grid-template-columns:1fr;row-gap:32px}
-    .organizer,.organizer:not(:first-child){padding-left:0;padding-right:0}
-    .organizer:not(:first-child)::before{display:none}
-    .speakers-grid{grid-template-columns:1fr;row-gap:32px}
-    .speaker,.speaker:not(:first-child){padding-left:0;padding-right:0}
-    .speaker:not(:first-child)::before{display:none}
+    .organizers-grid{grid-template-columns:1fr;gap:32px}
+    .speakers-grid{grid-template-columns:1fr;gap:32px}
   }
 
   @media (min-width:861px){
     .mobile-topbar,.nav-overlay{display:none !important}
-  }
-
-  @media (min-width:861px) and (max-width:1180px){
   }
 
   /* Only split when the section itself has enough room, not merely the viewport. */
@@ -658,8 +626,8 @@
 
       <div class="interest">
         <h3>Interested in attending?</h3>
-        <p>Register ACM HCOMP 2026 to join Sovereign AI Workshop!</p>
-        <a class="btn" href="https://hcomp.acm.org/2026/registration.html" aria-label="Registration Link">Register Now!<span class="arr">&rarr;</span></a>
+        <p>Registration is handled through the main conference. Register for HCOMP 2026 and select this workshop.</p>
+        <a class="btn" href="https://hcomp.acm.org/2026/registration.html" aria-label="Registration Link">Register for HCOMP 2026<span class="arr">&rarr;</span></a>
       </div>
     </section>
 
@@ -797,7 +765,7 @@
     </section>
 
     <section id="committee">
-      <div class="section-head" style="margin-bottom:18px"><span class="n">vii.</span><h2>Organizing Committee</h2></div>
+      <div class="section-head"><span class="n">vii.</span><h2>Organizing Committee</h2></div>
 
       <div class="organizers-panel">
         <div class="organizers-grid">
