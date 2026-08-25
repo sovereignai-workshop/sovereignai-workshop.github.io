@@ -32,6 +32,8 @@
     --sidebar-w:clamp(268px, 20vw, 306px);
     --max:920px;
     --wide:1080px;
+    /* north-east arrow, drawn as a mask so it inherits the link colour */
+    --arrow-ne:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7'/%3E%3Cpath d='M8.5 7H17v8.5'/%3E%3C/svg%3E");
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -77,6 +79,21 @@
     /* short or scaled displays must scroll rather than clip the facts block */
     overflow-y:auto;overscroll-behavior:contain;
   }
+  /* Firefox has no ::-webkit-scrollbar; give it the standard properties instead.
+     Scoped, because Chromium 121+ honours scrollbar-width and would otherwise
+     override the hairline below with its own ~11px "thin" bar. */
+  @supports not selector(::-webkit-scrollbar){
+    .sidebar{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.3) transparent}
+  }
+  /* WebKit/Chromium: a true hairline rail */
+  .sidebar::-webkit-scrollbar{width:3px}
+  .sidebar::-webkit-scrollbar-track{background:transparent}
+  .sidebar::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,.22);border-radius:3px;
+    transition:background .25s cubic-bezier(.16,1,.3,1);
+  }
+  .sidebar:hover::-webkit-scrollbar-thumb{background:rgba(255,255,255,.4)}
+  .sidebar::-webkit-scrollbar-thumb:active{background:rgba(255,255,255,.62)}
   .brand-link{display:block;text-decoration:none;color:inherit}
   .brand .mark-shape{display:block;margin-bottom:22px;opacity:.85}
   .brand .mark{
@@ -301,9 +318,33 @@
   }
   .speaker .id{display:flex;flex:1;flex-direction:column;min-width:0;padding-top:18px}
   .speaker h3{font-family:var(--sans);font-size:17px;font-weight:650;letter-spacing:-.008em;color:var(--navy);line-height:1.35}
+  /* the name carries the link to the speaker's own site;
+     an external-link arrow unfurls on hover, reserved so nothing reflows */
+  .speaker h3 a{
+    color:inherit;text-underline-offset:3px;
+    text-decoration-color:color-mix(in srgb, currentColor 32%, transparent);
+    display:inline-flex;align-items:center;
+  }
+  /* the arrow overhangs: its negative right margin cancels its own width and
+     left margin, so it adds nothing to the box and the underline stops at the name */
+  .speaker h3 a::after{
+    content:"";flex:none;
+    width:.62em;height:.62em;
+    margin-left:.3em;margin-right:calc(-.62em - .3em);
+    background:currentColor;
+    -webkit-mask:var(--arrow-ne) center/contain no-repeat;
+            mask:var(--arrow-ne) center/contain no-repeat;
+    opacity:0;transform:translate(-2px,2px);
+    transition:opacity .22s cubic-bezier(.16,1,.3,1),transform .22s cubic-bezier(.16,1,.3,1);
+  }
+  .speaker h3 a:hover,.speaker h3 a:focus-visible{text-decoration-color:currentColor}
+  .speaker h3 a:hover::after,.speaker h3 a:focus-visible::after{
+    opacity:.72;transform:translate(0,0);
+  }
+  @media (prefers-reduced-motion:reduce){
+    .speaker h3 a::after{transition:none}
+  }
   .speaker .role{color:var(--muted);font-size:13px;margin-top:5px;line-height:1.58;max-width:68ch}
-  .speaker .mail{display:inline-block;align-self:flex-start;margin-top:auto;padding-top:12px;font-size:12.5px;color:var(--navy);text-underline-offset:3px;text-decoration-color:rgba(10,36,82,.32)}
-  .speaker .mail:hover{text-decoration:none}
 
   /* schedule */
   .schedule-intro{margin-bottom:34px;font-size:13px}
@@ -633,7 +674,6 @@
     .speaker .id{display:block;padding-top:0}
     .speaker h3{font-size:15.5px}
     .speaker .role{font-size:12.5px;line-height:1.5}
-    .speaker .mail{margin-top:8px;padding-top:0}
   }
 
   @media (min-width:861px){
@@ -759,25 +799,22 @@
         <div class="speaker">
           <div class="photo" style="background-image:url('images/people/pietro_michelucci_closeup.jpg')"></div>
           <div class="id">
-            <h3>Pietro Michelucci</h3>
+            <h3><a href="https://about.me/pmichelu" target="_blank" rel="noopener">Pietro Michelucci</a></h3>
             <p class="role">President, Human Computation Institute &middot; Visiting Professor, Cornell University, Meinig School of Biomedical Engineering</p>
-            <a class="mail" href="https://about.me/pmichelu" target="_blank" rel="noopener">about.me/pmichelu</a>
           </div>
         </div>
         <div class="speaker">
           <div class="photo" style="background-image:url('images/people/Senjuti-Dutta.jpg');background-position:center 0px"></div>
           <div class="id">
-            <h3>Senjuti Dutta</h3>
+            <h3><a href="https://senjutidutta.com/" target="_blank" rel="noopener">Senjuti Dutta</a></h3>
             <p class="role">Postdoctoral Fellow, Center for the Dynamics of Social Complexity (DySoC), University of Tennessee</p>
-            <a class="mail" href="https://senjutidutta.com/" target="_blank" rel="noopener">senjutidutta.com</a>
           </div>
         </div>
         <div class="speaker">
           <div class="photo" style="background-image:url('images/people/Giordano-De_Marzo.jpg')"></div>
           <div class="id">
-            <h3>Giordano De Marzo</h3>
+            <h3><a href="https://giordano-demarzo.github.io/" target="_blank" rel="noopener">Giordano De Marzo</a></h3>
             <p class="role">Postdoctoral Researcher, Computational Social Science Lab, Department of Politics and Public Administration, University of Konstanz</p>
-            <a class="mail" href="https://giordano-demarzo.github.io/" target="_blank" rel="noopener">giordano-demarzo.github.io</a>
           </div>
         </div>
       </div>
