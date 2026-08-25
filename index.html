@@ -7,7 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@200..900&family=Instrument+Sans:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=SN+Pro:wght@200..900&amp;family=Instrument+Sans:wght@400..700&amp;family=Lora:ital,wght@0,400..700;1,400..700&amp;display=swap" rel="stylesheet">
 <style>
   /* ================================================================
      Type system - two registers, no exceptions.
@@ -26,6 +26,7 @@
     --paper:#fefefd;
     --paper-alt:#f4f6fa;
     --speaker-surface:#edf2f8;
+    --focus-surface:#f0f4fc;
     --serif:Lora,Georgia,serif;
     --sans:'Instrument Sans',Helvetica,system-ui,sans-serif;
     --rounded:'SN Pro',system-ui,sans-serif;
@@ -130,8 +131,15 @@
     padding:11px 15px;border-radius:2px;
     transition:background-color .25s cubic-bezier(.16,1,.3,1),color .25s,border-color .25s;
   }
+  .side-cta strong{display:block;font:inherit}
+  .side-cta small{
+    display:block;margin-top:2px;color:rgba(255,255,255,.74);
+    font-size:10.5px;line-height:1.4;letter-spacing:.04em;
+    transition:color .25s;
+  }
   .side-cta .arr{transition:transform .25s cubic-bezier(.16,1,.3,1)}
   .side-cta:hover{background:#fff;color:var(--navy);border-color:#fff}
+  .side-cta:hover small{color:var(--navy-soft)}
   .side-cta:hover .arr{transform:translateX(3px)}
   .side-cta:active{transform:translateY(1px)}
 
@@ -241,15 +249,34 @@
     margin:14px 0 0;
   }
 
+  #cfp{max-width:1040px;padding-top:78px;padding-bottom:78px}
+  #cfp .section-head{margin-bottom:24px}
+  #cfp .section-head .n{opacity:.48}
+  #cfp .section-head h2{font-size:clamp(32px,3.5vw,42px);color:var(--navy-deep)}
+  .cfp-intro{
+    max-width:78ch;padding-left:22px;border-left:3px solid var(--navy);
+  }
   .cfp p{color:var(--ink);font-size:15.5px;max-width:76ch;margin-bottom:18px;text-wrap:pretty}
+  .cfp-intro p:first-child{font-size:17px;line-height:1.72}
   .cfp strong{font-weight:600;color:var(--navy)}
   .cfp-submissions strong{font-weight:550;color:inherit}
   .cfp p a{color:var(--navy);text-underline-offset:3px}
   .cfp p a:hover{text-decoration:none}
 
-  .cfp-submissions{margin:28px 0}
-  .cfp-submissions p{margin-bottom:12px}
+  .cfp-submissions{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;
+    margin:34px 0;
+  }
+  .cfp-submissions p{
+    max-width:none;margin:0;padding:20px 22px 21px;
+    background:var(--paper-alt);border:1px solid var(--line);
+    font-size:14.5px;line-height:1.65;
+  }
   .cfp-submissions p:last-child{margin-bottom:0}
+  .submission-label{
+    display:block;margin-bottom:7px;color:var(--navy);font-size:10.5px;
+    font-weight:650;letter-spacing:.15em;text-transform:uppercase;
+  }
 
   table.dates{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px}
   table.dates td{padding:8px 0;color:var(--ink);font-variant-numeric:tabular-nums}
@@ -264,30 +291,35 @@
   table.dates tr.key td:last-child{font-weight:700;font-size:15px}
   .dates-note{font-size:13px;color:var(--faint);margin-top:18px}
 
-  /* The deadline is the only thing on this page a reader must act on, so it is
-     the only block that gets the navy surface outside the session prompt. */
-  .deadline{margin-top:32px;padding-top:22px;border-top:2px solid var(--navy)}
+  /* The deadline is the clearest action on the page, so it gets a distinct
+     light-blue field while keeping the text and CTA high contrast. */
+  .deadline{
+    margin:0 0 36px;padding:34px 36px 30px;
+    color:var(--ink);background:linear-gradient(145deg,var(--focus-surface),#dfe9fb);
+    border:1px solid rgba(66,116,217,.24);
+    box-shadow:0 16px 38px rgba(17,46,129,.1);
+  }
   .dl-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:26px}
   .dl-label{
     grid-column:1;font-size:10.5px;font-weight:550;letter-spacing:.17em;
-    text-transform:uppercase;color:var(--faint);
+    text-transform:uppercase;color:var(--navy);
   }
-  /* .cfp p sets --ink, which out-specifies the white inherited from .deadline,
-     so every text colour inside this panel is stated explicitly. */
   .cfp .dl-date{
-    grid-column:1;margin-top:7px;margin-bottom:0;color:var(--navy);
-    font-family:var(--serif);font-weight:500;
-    font-size:clamp(32px,4.2vw,46px);line-height:1;letter-spacing:-.022em;
+    grid-column:1;margin-top:8px;margin-bottom:0;color:var(--navy-deep);
+    font-family:var(--rounded);font-weight:540;
+    font-size:clamp(38px,4.8vw,56px);line-height:.98;letter-spacing:-.03em;
     display:flex;align-items:baseline;gap:13px;
   }
-  .dl-yr{font-style:italic;font-size:.46em;color:var(--faint)}
+  .dl-yr{font-family:var(--serif);font-style:italic;font-size:.4em;color:var(--faint)}
   .dl-head .btn{grid-column:2;grid-row:1/3;margin-top:0;align-self:end}
   .dl-rest{
-    margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
+    margin-top:28px;padding-top:22px;border-top:1px solid rgba(66,116,217,.22);
     display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
   }
-  .dl-rest dt{font-size:10.5px;font-weight:550;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+  .dl-rest dt{font-size:10.5px;font-weight:550;letter-spacing:.15em;text-transform:uppercase;color:var(--navy)}
   .cfp .dl-rest dd{margin-top:6px;font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums}
+  .deadline .btn{background:var(--navy-deep);color:#fff;font-weight:650}
+  .deadline .btn:hover{background:var(--navy)}
 
   .btn{
     display:inline-flex;align-items:center;gap:10px;
@@ -301,22 +333,53 @@
   .btn:hover .arr{transform:translateX(3px)}
   .btn:active{transform:translateY(1px)}
 
-  /* Speaker portraits and names carry the emphasis. Editorial rows keep the
-     roster distinct without turning each person into a large promotional slab. */
+  /* Speakers live on an open orbital field. The circular portraits echo the
+     workshop mark; offsets create hierarchy without three equal cards. */
+  #speakers{
+    position:relative;isolation:isolate;overflow:hidden;max-width:1040px;
+    margin-top:20px;margin-bottom:20px;padding-top:62px;padding-bottom:76px;
+    background:transparent;border-top:1px solid var(--rule);
+  }
+  #speakers::before{
+    content:"";position:absolute;z-index:-1;width:620px;height:620px;border-radius:50%;
+    left:-250px;top:-315px;background:var(--focus-surface);pointer-events:none;
+  }
+  #speakers::after{
+    content:"";position:absolute;z-index:-1;width:260px;height:260px;border-radius:50%;
+    right:30px;top:48px;border:1px solid rgba(66,116,217,.2);
+    box-shadow:0 0 0 34px rgba(66,116,217,.035);pointer-events:none;
+  }
+  #speakers .section-head{margin-bottom:14px}
+  #speakers .section-head .n{opacity:.5}
+  #speakers .section-head h2{font-size:clamp(32px,3.5vw,42px);color:var(--navy-deep)}
+  .speakers-lede{
+    max-width:62ch;margin:0 0 38px 46px;color:var(--muted);
+    font-size:15px;line-height:1.65;
+  }
   .speakers-grid{
-    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:840px;
+    position:relative;z-index:1;display:grid;
+    grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr) minmax(0,1fr);
+    align-items:start;gap:42px;max-width:900px;
   }
   .speaker{
     display:flex;flex-direction:column;align-items:flex-start;min-width:0;
-    padding:24px 22px 22px;background:var(--speaker-surface);color:var(--ink);
-    border:1px solid rgba(10,36,82,.13);border-top:3px solid var(--navy);
+    min-height:0;padding:0;background:transparent;color:var(--ink);border:0;box-shadow:none;
+    transition:transform .3s cubic-bezier(.16,1,.3,1);
   }
+  .speaker:nth-child(2){margin-top:62px}
+  .speaker:nth-child(3){margin-top:20px}
+  .speaker:nth-child(2) .photo{width:156px;height:156px}
+  .speaker:hover,.speaker:focus-within{transform:translateY(-6px)}
   .speaker .photo{
-    flex:none;width:88px;height:88px;border-radius:50%;background:var(--navy);
+    flex:none;width:138px;height:138px;border-radius:50%;background:var(--navy);
     background-size:cover;background-position:center;
-    box-shadow:0 0 0 1px rgba(10,36,82,.28), inset 0 0 0 2px rgba(255,255,255,.32);
+    box-shadow:0 0 0 9px var(--paper),0 0 0 10px rgba(66,116,217,.3),0 16px 30px rgba(17,46,129,.13);
+    transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s cubic-bezier(.16,1,.3,1);
   }
-  .speaker .id{display:flex;flex:1;flex-direction:column;min-width:0;padding-top:18px}
+  .speaker:hover .photo,.speaker:focus-within .photo{
+    transform:scale(1.035);box-shadow:0 0 0 11px var(--paper),0 0 0 12px rgba(66,116,217,.46),0 20px 36px rgba(17,46,129,.17);
+  }
+  .speaker .id{display:flex;flex:1;flex-direction:column;min-width:0;max-width:250px;padding-top:25px}
   .speaker h3{font-family:var(--sans);font-size:17px;font-weight:650;letter-spacing:-.008em;color:var(--navy);line-height:1.35}
   /* the name carries the link to the speaker's own site;
      an external-link arrow unfurls on hover, reserved so nothing reflows */
@@ -342,7 +405,9 @@
     opacity:.72;transform:translate(0,0);
   }
   @media (prefers-reduced-motion:reduce){
-    .speaker h3 a::after{transition:none}
+    .speaker,.speaker .photo,.speaker h3 a::after{transition:none}
+    .speaker:hover,.speaker:focus-within{transform:none}
+    .speaker:hover .photo,.speaker:focus-within .photo{transform:none}
   }
   .speaker .role{color:var(--muted);font-size:13px;margin-top:5px;line-height:1.58;max-width:68ch}
 
@@ -643,6 +708,10 @@
     .entry{grid-template-columns:52px 1fr;gap:16px}
     .entry .num{font-size:32px}
     .prompt-field{padding:34px 24px}
+    #cfp{padding-top:54px;padding-bottom:58px}
+    .cfp-intro{padding-left:16px}
+    .cfp-intro p:first-child{font-size:16px}
+    .cfp-submissions{grid-template-columns:1fr;gap:0}
     .deadline{padding:28px 24px 26px}
     .dl-head{grid-template-columns:1fr;align-items:start;gap:0}
     .dl-head .btn{grid-column:1;grid-row:auto;margin-top:22px}
@@ -668,9 +737,17 @@
     .newsllm-strip{scroll-margin-top:74px}
 
     .organizers-grid{grid-template-columns:1fr;gap:32px}
-    .speakers-grid{grid-template-columns:1fr;gap:12px}
-    .speaker{display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px;padding:18px;border-top-width:2px}
-    .speaker .photo{width:72px;height:72px}
+    #speakers{margin-top:12px;margin-bottom:12px;padding-top:48px;padding-bottom:54px}
+    #speakers::before{width:430px;height:430px;left:-250px;top:-210px}
+    #speakers::after{display:none}
+    .speakers-lede{margin:0 0 24px 0}
+    .speakers-grid{grid-template-columns:1fr;gap:0}
+    .speaker,.speaker:nth-child(2),.speaker:nth-child(3){
+      display:grid;grid-template-columns:88px minmax(0,1fr);gap:19px;
+      min-height:0;margin-top:0;padding:22px 0 25px;border-top:1px solid rgba(66,116,217,.2);
+    }
+    .speaker .photo{width:82px;height:82px;box-shadow:0 0 0 5px var(--paper),0 0 0 6px rgba(66,116,217,.28)}
+    .speaker:nth-child(2) .photo{width:94px;height:94px}
     .speaker .id{display:block;padding-top:0}
     .speaker h3{font-size:15.5px}
     .speaker .role{font-size:12.5px;line-height:1.5}
@@ -743,7 +820,7 @@
       </nav>
     </div>
     <div class="side-foot">
-      <a class="side-cta" href="#cfp">Submit a paper <span class="arr">&rarr;</span></a>
+      <a class="side-cta" href="#cfp"><span><strong>Submit a paper</strong><small>Deadline: August 31</small></span><span class="arr">&rarr;</span></a>
       <dl class="facts">
         <div class="fact"><dt>Date</dt><dd>September 27, 2026</dd></div>
         <div class="fact"><dt>Location</dt><dd><a href="https://maps.app.goo.gl/2nR8BNDuSYrZyFL17">Virginia Tech Academic Building One<br>Washington, DC</a></dd></div>
@@ -795,6 +872,7 @@
 
     <section id="speakers">
       <div class="section-head"><span class="n">iii.</span><h2>Confirmed Speakers</h2></div>
+      <p class="speakers-lede">Confirmed researchers across human computation, social complexity, and computational social science.</p>
       <div class="speakers-grid">
         <div class="speaker">
           <div class="photo" style="background-image:url('images/people/pietro_michelucci_closeup.jpg')"></div>
@@ -954,17 +1032,6 @@
 
     <section id="cfp" class="cfp">
       <div class="section-head"><span class="n">vi.</span><h2>Call for Papers</h2></div>
-      <p>This workshop invites researchers and practitioners to rethink sovereign AI through the lens of human-AI collaboration, interaction, and governance: when global models inevitably shape local lives, how can communities retain the capacity to define their own narratives, values, and collective futures?</p>
-
-      <p>We welcome contributions that advance, critique, or reimagine sovereign AI through three complementary paths including <strong>technical</strong> (models, data, safety, and evaluation), <strong>design</strong> (interaction, oversight, and intervention), and <strong>institutional</strong> (law, policy, and governance). We especially encourage work that crosses these boundaries. We particularly welcome submissions from researchers and practitioners in <strong>AI, HCI, law and public policy, government, journalism, civil society, open-source communities</strong>, and related fields.</p>
-
-      <div class="cfp-submissions">
-        <p>Submissions may take the form of <strong>extended abstracts, work-in-progress reports, or real-world case studies</strong>.</p>
-        <p>Submissions should be <strong>2-4 pages (excluding references)</strong> using the ACM conference format.</p>
-        <p>Accepted submissions will be presented in <strong>oral or poster sessions</strong> and will serve as the foundation for the workshop&rsquo;s interactive discussions and collaborative activities.</p>
-        <p>See <a href="https://hcomp.acm.org/2026/submit.html#general">General Submission Instructions</a> for the official ACM templates and formatting policies.</p>
-      </div>
-
       <div class="deadline">
         <div class="dl-head">
           <span class="dl-label">Paper submission deadline</span>
@@ -977,6 +1044,19 @@
           <div><dt>Deadlines close</dt><dd>11:59&#8202;pm Anywhere on Earth</dd></div>
         </dl>
       </div>
+      <div class="cfp-intro">
+        <p>This workshop invites researchers and practitioners to rethink sovereign AI through the lens of human-AI collaboration, interaction, and governance: when global models inevitably shape local lives, how can communities retain the capacity to define their own narratives, values, and collective futures?</p>
+
+        <p>We welcome contributions that advance, critique, or reimagine sovereign AI through three complementary paths including <strong>technical</strong> (models, data, safety, and evaluation), <strong>design</strong> (interaction, oversight, and intervention), and <strong>institutional</strong> (law, policy, and governance). We especially encourage work that crosses these boundaries. We particularly welcome submissions from researchers and practitioners in <strong>AI, HCI, law and public policy, government, journalism, civil society, open-source communities</strong>, and related fields.</p>
+      </div>
+
+      <div class="cfp-submissions">
+        <p><span class="submission-label">Submission types</span><strong>Extended abstracts, work-in-progress reports, or real-world case studies</strong>.</p>
+        <p><span class="submission-label">Length and format</span><strong>2-4 pages (excluding references)</strong> using the ACM conference format.</p>
+        <p><span class="submission-label">Presentation</span>Accepted submissions will be presented in <strong>oral or poster sessions</strong> and will serve as the foundation for the workshop&rsquo;s interactive discussions and collaborative activities.</p>
+        <p><span class="submission-label">ACM templates</span>See <a href="https://hcomp.acm.org/2026/submit.html#general">General Submission Instructions</a> for the official ACM templates and formatting policies.</p>
+      </div>
+
       <p class="dates-note">Papers in our workshop are non-archival; accepted work may be submitted or published elsewhere without restriction.</p>
     </section>
 
