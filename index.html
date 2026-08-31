@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sovereign AI Workshop, HCOMP 2026</title>
+<meta name="description" content="The First Workshop on Sovereign AI for Collaborative and Pluralistic AI Ecosystems, co-located with ACM HCOMP 2026 in Washington, DC.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://sovereignai-workshop.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sovereign AI Workshop, HCOMP 2026">
+<meta property="og:description" content="The First Workshop on Sovereign AI for Collaborative and Pluralistic AI Ecosystems, co-located with ACM HCOMP 2026.">
+<meta property="og:url" content="https://sovereignai-workshop.github.io/">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -358,8 +365,8 @@
   }
   .speakers-grid{
     position:relative;z-index:1;display:grid;
-    grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr) minmax(0,1fr);
-    align-items:start;gap:42px;max-width:900px;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    align-items:start;gap:32px;max-width:1000px;
   }
   .speaker{
     display:flex;flex-direction:column;align-items:flex-start;min-width:0;
@@ -368,6 +375,7 @@
   }
   .speaker:nth-child(2){margin-top:62px}
   .speaker:nth-child(3){margin-top:20px}
+  .speaker:nth-child(4){margin-top:48px}
   .speaker:nth-child(2) .photo{width:156px;height:156px}
   .speaker:hover,.speaker:focus-within{transform:translateY(-6px)}
   .speaker .photo{
@@ -750,18 +758,27 @@
     .newsllm-title-panel img{height:42px;max-width:48px}
     .newsllm-strip{scroll-margin-top:74px}
 
-    .organizers-grid{grid-template-columns:1fr;gap:32px}
+    .organizers-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 20px}
+    .organizers-grid .organizer:last-child:nth-child(odd){
+      grid-column:1/-1;width:calc(50% - 10px);justify-self:center;
+    }
+    .organizer{min-width:0}
+    .organizer .photo{width:76px;height:76px}
+    .organizer .id{min-width:0;padding-top:12px}
+    .organizer h3{font-size:14px}
+    .organizer .role{font-size:12px;line-height:1.5}
+    .organizer .mail{font-size:11.5px;overflow-wrap:anywhere}
     #speakers{margin-top:12px;margin-bottom:12px;padding-top:48px;padding-bottom:54px}
     #speakers::before{width:430px;height:430px;left:-250px;top:-210px}
     #speakers::after{display:none}
     .speakers-lede{margin:0 0 24px 0}
     .speakers-grid{grid-template-columns:1fr;gap:0}
-    .speaker,.speaker:nth-child(2),.speaker:nth-child(3){
-      display:grid;grid-template-columns:88px minmax(0,1fr);gap:19px;
-      min-height:0;margin-top:0;padding:22px 0 25px;border-top:1px solid rgba(66,116,217,.2);
+    .speaker,.speaker:nth-child(2),.speaker:nth-child(3),.speaker:nth-child(4){
+      display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px;
+      min-height:0;margin-top:0;padding:18px 0 21px;border-top:1px solid rgba(66,116,217,.2);
     }
-    .speaker .photo{width:82px;height:82px;box-shadow:0 0 0 5px var(--paper),0 0 0 6px rgba(66,116,217,.28)}
-    .speaker:nth-child(2) .photo{width:94px;height:94px}
+    .speaker .photo{width:64px;height:64px;box-shadow:0 0 0 4px var(--paper),0 0 0 5px rgba(66,116,217,.28)}
+    .speaker:nth-child(2) .photo{width:70px;height:70px}
     .speaker .id{display:block;padding-top:0}
     .speaker h3{font-size:15.5px}
     .speaker .role{font-size:12.5px;line-height:1.5}
@@ -887,7 +904,7 @@
 
     <section id="speakers">
       <div class="section-head"><span class="n">iii.</span><h2>Confirmed Speakers</h2></div>
-      <p class="speakers-lede">Confirmed researchers across human computation, social complexity, and computational social science.</p>
+      <p class="speakers-lede">Confirmed researchers across human computation, social complexity, computational social science, and AI governance.</p>
       <div class="speakers-grid">
         <div class="speaker">
           <div class="photo" style="background-image:url('images/people/pietro_michelucci_closeup.jpg')"></div>
@@ -908,6 +925,13 @@
           <div class="id">
             <h3><a href="https://giordano-demarzo.github.io/" target="_blank" rel="noopener">Giordano De Marzo</a></h3>
             <p class="role">Postdoctoral Researcher, Computational Social Science Lab, Department of Politics and Public Administration, University of Konstanz</p>
+          </div>
+        </div>
+        <div class="speaker">
+          <div class="photo" style="background-image:url('images/people/Nicholas-Caputo.jpg')"></div>
+          <div class="id">
+            <h3><a href="https://nicholascaputo.com/" target="_blank" rel="noopener">Nicholas Caputo</a></h3>
+            <p class="role">Assistant Professor of Frontier AI Governance, Johns Hopkins School of Government and Policy</p>
           </div>
         </div>
       </div>
@@ -1325,3 +1349,18 @@
     btn.addEventListener('click', function(){
       sidebar.classList.contains('open') ? close() : open();
     });
+    overlay.addEventListener('click', close);
+    sidebar.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', close);
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') close();
+    });
+    window.addEventListener('resize', function(){
+      if(window.innerWidth > 860) close();
+    });
+  })();
+</script>
+
+</body>
+</html>
