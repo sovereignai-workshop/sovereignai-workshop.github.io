@@ -376,7 +376,7 @@
   .speaker:nth-child(2){margin-top:62px}
   .speaker:nth-child(3){margin-top:20px}
   .speaker:nth-child(4){margin-top:48px}
-  .speaker:nth-child(2) .photo{width:156px;height:156px}
+  .speaker:nth-child(2) .photo{width:146px;height:146px}
   .speaker:hover,.speaker:focus-within{transform:translateY(-6px)}
   .speaker .photo{
     flex:none;width:138px;height:138px;border-radius:50%;background:var(--navy);
@@ -418,6 +418,22 @@
     .speaker:hover .photo,.speaker:focus-within .photo{transform:none}
   }
   .speaker .role{color:var(--muted);font-size:13px;margin-top:5px;line-height:1.58;max-width:68ch}
+  .talk-title{
+    position:relative;width:100%;margin-top:17px;padding:11px 13px 12px;
+    color:var(--ink);background:rgba(240,244,252,.72);
+    border:1px solid rgba(66,116,217,.22);border-radius:2px;
+    box-shadow:0 9px 24px rgba(17,46,129,.055);
+    font-size:12.5px;line-height:1.48;text-wrap:pretty;
+  }
+  .talk-title::before{
+    content:"";position:absolute;left:17px;top:-5px;width:8px;height:8px;
+    background:#f6f8fc;border-left:1px solid rgba(66,116,217,.22);
+    border-top:1px solid rgba(66,116,217,.22);transform:rotate(45deg);
+  }
+  .talk-title-label{
+    display:block;margin-bottom:5px;color:var(--navy);font-size:9.5px;
+    font-weight:650;letter-spacing:.13em;text-transform:uppercase;
+  }
 
   /* schedule */
   .schedule-intro{margin-bottom:34px;font-size:13px}
@@ -461,6 +477,12 @@
   }
   .interactive-intro{max-width:820px}
   .interactive-intro .section-head{margin-bottom:0}
+  .interactive-heading{display:flex;align-items:baseline;gap:20px;flex-wrap:wrap}
+  .interactive-tagline{
+    display:inline-flex;gap:6px;color:var(--muted);
+    font-family:var(--serif);font-size:18px;font-style:italic;font-weight:520;line-height:1.4;
+  }
+  .interactive-tagline strong{color:var(--navy);font-weight:600}
   .prompt-field{
     margin:26px 0 48px;padding:40px 42px;
     background:
@@ -775,10 +797,13 @@
       min-height:0;margin-top:0;padding:18px 0 21px;border-top:1px solid rgba(66,116,217,.2);
     }
     .speaker .photo{width:64px;height:64px;box-shadow:0 0 0 4px var(--paper),0 0 0 5px rgba(66,116,217,.28)}
-    .speaker:nth-child(2) .photo{width:70px;height:70px}
+    .speaker:nth-child(2) .photo{width:60px;height:60px}
     .speaker .id{display:block;padding-top:0}
     .speaker h3{font-size:15.5px}
     .speaker .role{font-size:12.5px;line-height:1.5}
+    .talk-title{margin-top:13px;padding:10px 12px 11px;font-size:12px}
+    .interactive-heading{display:block}
+    .interactive-tagline{display:flex;margin-top:8px;font-size:16px}
   }
 
   @media (min-width:861px){
@@ -908,6 +933,7 @@
           <div class="id">
             <h3><a href="https://about.me/pmichelu" target="_blank" rel="noopener">Pietro Michelucci</a></h3>
             <p class="role">President, Human Computation Institute &middot; Visiting Professor, Cornell University, Meinig School of Biomedical Engineering</p>
+            <p class="talk-title"><span class="talk-title-label">Talk title:</span>Who Pulls the Strings? Purpose, Power, and Human Agency in AI</p>
           </div>
         </div>
         <div class="speaker">
@@ -922,6 +948,7 @@
           <div class="id">
             <h3><a href="https://giordano-demarzo.github.io/" target="_blank" rel="noopener">Giordano De Marzo</a></h3>
             <p class="role">Postdoctoral Researcher, Computational Social Science Lab, Department of Politics and Public Administration, University of Konstanz</p>
+            <p class="talk-title"><span class="talk-title-label">Talk title:</span>Emergent behaviours in AI agents societies</p>
           </div>
         </div>
         <div class="speaker">
@@ -960,7 +987,13 @@
 
     <section id="interactive" class="interactive">
       <div class="interactive-intro">
-        <div class="section-head"><span class="n">v.</span><h2>Hacking Sovereign AI</h2></div>
+        <div class="section-head">
+          <span class="n">v.</span>
+          <div class="interactive-heading">
+            <h2>Hacking Sovereign AI</h2>
+            <p class="interactive-tagline"><span>Join the discussion.</span><strong>Shape the report.</strong></p>
+          </div>
+        </div>
       </div>
 
       <div class="prompt-field">
