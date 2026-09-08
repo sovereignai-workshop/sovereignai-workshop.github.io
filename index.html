@@ -365,7 +365,7 @@
   }
   .speakers-grid{
     position:relative;z-index:1;display:grid;
-    grid-template-columns:repeat(4,minmax(0,1fr));
+    grid-template-columns:repeat(3,minmax(0,1fr));
     align-items:start;gap:32px;max-width:1000px;
   }
   .speaker{
@@ -373,10 +373,8 @@
     min-height:0;padding:0;background:transparent;color:var(--ink);border:0;box-shadow:none;
     transition:transform .3s cubic-bezier(.16,1,.3,1);
   }
-  .speaker:nth-child(2){margin-top:62px}
-  .speaker:nth-child(3){margin-top:20px}
-  .speaker:nth-child(4){margin-top:48px}
-  .speaker:nth-child(2) .photo{width:146px;height:146px}
+  .speaker.spacer {}
+  .speaker[data-name="dutta"] .photo{width:146px;height:146px}
   .speaker:hover,.speaker:focus-within{transform:translateY(-6px)}
   .speaker .photo{
     flex:none;width:138px;height:138px;border-radius:50%;background:var(--navy);
@@ -928,7 +926,14 @@
       <div class="section-head"><span class="n">iii.</span><h2>Confirmed Speakers</h2></div>
       <p class="speakers-lede">Confirmed researchers across human computation, social complexity, computational social science, and AI governance.</p>
       <div class="speakers-grid">
-        <div class="speaker">
+        <div class="speaker" data-name="hou">
+          <div class="photo" style="background-image:url('images/people/hou.jpg')"></div>
+          <div class="id">
+            <h3><a href="https://moda.gov.tw/en/aboutus/principal-officers/deputy-minister-hou/1735" target="_blank" rel="noopener">Isabel Hou</a></h3>
+            <p class="role">Deputy Minister, Ministry of Digital Affairs (Taiwan)</p>
+          </div>
+        </div>
+        <div class="speaker" data-name="michelucci">
           <div class="photo" style="background-image:url('images/people/pietro_michelucci_closeup.jpg')"></div>
           <div class="id">
             <h3><a href="https://about.me/pmichelu" target="_blank" rel="noopener">Pietro Michelucci</a></h3>
@@ -936,14 +941,15 @@
             <p class="talk-title"><span class="talk-title-label">Talk title:</span>Who Pulls the Strings? Purpose, Power, and Human Agency in AI</p>
           </div>
         </div>
-        <div class="speaker">
+        <div class="speaker spacer"></div>
+        <div class="speaker" data-name="dutta">
           <div class="photo" style="background-image:url('images/people/Senjuti-Dutta.jpg');background-position:center 0px"></div>
           <div class="id">
             <h3><a href="https://senjutidutta.com/" target="_blank" rel="noopener">Senjuti Dutta</a></h3>
             <p class="role">Postdoctoral Fellow, Center for the Dynamics of Social Complexity (DySoC), University of Tennessee</p>
           </div>
         </div>
-        <div class="speaker">
+        <div class="speaker" data-name="de-marzo">
           <div class="photo" style="background-image:url('images/people/Giordano-De_Marzo.jpg')"></div>
           <div class="id">
             <h3><a href="https://giordano-demarzo.github.io/" target="_blank" rel="noopener">Giordano De Marzo</a></h3>
@@ -951,7 +957,7 @@
             <p class="talk-title"><span class="talk-title-label">Talk title:</span>Emergent behaviours in AI agents societies</p>
           </div>
         </div>
-        <div class="speaker">
+        <div class="speaker" data-name="caputo">
           <div class="photo" style="background-image:url('images/people/Nicholas-Caputo.jpg')"></div>
           <div class="id">
             <h3><a href="https://nicholascaputo.com/" target="_blank" rel="noopener">Nicholas Caputo</a></h3>
