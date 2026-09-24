@@ -386,8 +386,9 @@
   }
   .speaker .id{display:flex;flex:1;flex-direction:column;min-width:0;max-width:250px;padding-top:25px}
   .speaker h3{font-family:var(--sans);font-size:17px;font-weight:650;letter-spacing:-.008em;color:var(--navy);line-height:1.35}
-  /* the name carries the link to the speaker's own site;
-     an external-link arrow unfurls on hover, reserved so nothing reflows */
+  /* shared: the speaker name carries the link to the speaker's own site and the
+     paper title carries the link to the presentation; an external-link arrow
+     unfurls on hover, reserved so nothing reflows */
   .speaker h3 a{
     color:inherit;text-underline-offset:3px;
     text-decoration-color:color-mix(in srgb, currentColor 32%, transparent);
@@ -395,8 +396,8 @@
   }
   /* the arrow overhangs: its negative right margin cancels its own width and
      left margin, so it adds nothing to the box and the underline stops at the name */
-  .speaker h3 a::after{
-    content:"";flex:none;
+  .speaker h3 a::after,.paper-title a::after{
+    content:"";flex:none;display:inline-block;vertical-align:-.05em;
     width:.62em;height:.62em;
     margin-left:.3em;margin-right:calc(-.62em - .3em);
     background:currentColor;
@@ -405,12 +406,12 @@
     opacity:0;transform:translate(-2px,2px);
     transition:opacity .22s cubic-bezier(.16,1,.3,1),transform .22s cubic-bezier(.16,1,.3,1);
   }
-  .speaker h3 a:hover,.speaker h3 a:focus-visible{text-decoration-color:currentColor}
-  .speaker h3 a:hover::after,.speaker h3 a:focus-visible::after{
+  .speaker h3 a:hover,.speaker h3 a:focus-visible,.paper-title a:hover,.paper-title a:focus-visible{text-decoration-color:currentColor}
+  .speaker h3 a:hover::after,.speaker h3 a:focus-visible::after,.paper-title a:hover::after,.paper-title a:focus-visible::after{
     opacity:.72;transform:translate(0,0);
   }
   @media (prefers-reduced-motion:reduce){
-    .speaker,.speaker .photo,.speaker h3 a::after{transition:none}
+    .speaker,.speaker .photo,.speaker h3 a::after,.paper-title a::after{transition:none}
     .speaker:hover,.speaker:focus-within{transform:none}
     .speaker:hover .photo,.speaker:focus-within .photo{transform:none}
   }
@@ -434,7 +435,7 @@
 
   /* schedule */
   .schedule-intro{margin-bottom:34px;font-size:13px}
-  .schedule-groups{display:grid;grid-template-columns:1fr 1fr;gap:46px;max-width:600px}
+  .schedule-groups{display:grid;grid-template-columns:1fr 1fr;gap:46px;max-width:760px}
   .schedule-group:only-child{grid-column:1/-1}
   .schedule-group h3{
     font-family:var(--sans);font-size:11px;font-weight:600;
@@ -457,8 +458,14 @@
   .schedule-title a:hover{text-decoration-color:currentColor}
   .schedule-detail{display:block;margin-top:3px;color:var(--muted);font-size:12.5px;line-height:1.55;}
   .schedule-detail span{display:block;font-style:normal;text-autospace:normal;}
+  /* accepted papers, nested under the oral session row - the title carries the link */
+  .paper-list{list-style:none;margin-top:11px;display:grid;gap:10px}
+  .paper-list li{padding-left:14px;border-left:1px solid var(--line)}
+  .paper-title{font-size:13px;font-weight:600;line-height:1.5;color:var(--navy-deep);text-wrap:pretty}
+  .paper-title a{color:inherit;text-underline-offset:3px;text-decoration-color:color-mix(in srgb, currentColor 32%, transparent)}
+  .paper-authors{display:block;margin-top:3px;color:var(--muted);font-size:12px;line-height:1.5}
   .schedule-item.break .schedule-title{font-weight:450;color:var(--muted)}
-  .schedule-group{max-width:520px}
+  .schedule-group{max-width:680px}
   .interest{
     margin-top:38px;padding:24px 28px;background:var(--paper-alt);
     border-left:2px solid var(--navy);
@@ -979,7 +986,30 @@
           <div class="schedule-item"><time class="schedule-time">9:00–9:05</time><div><div class="schedule-title">Opening</div></div></div>
           <div class="schedule-item"><time class="schedule-time">9:05–9:40</time><div><div class="schedule-title">Keynote Speaker: Deputy Minister Isabel Hou</div><cite class="schedule-detail"><span>協作共創的主權AI：台灣政策佈局與AI治理實踐</span>Sovereign AI through Collaboration: Taiwan’s Policy Strategy and AI Governance in Practice</cite></div></div>
           <div class="schedule-item"><time class="schedule-time">9:40–10:15</time><div><div class="schedule-title">Keynote Speaker: Dr. Pietro Michelucci</div><cite class="schedule-detail">Who Pulls the Strings? Purpose, Power, and Human Agency in AI</cite></div></div>
-          <div class="schedule-item"><time class="schedule-time">10:15–11:15</time><div><div class="schedule-title">Oral Presentation Sessions</div></div></div>
+          <div class="schedule-item"><time class="schedule-time">10:15–11:15</time><div><div class="schedule-title">Oral Presentation Sessions</div>
+            <ul class="paper-list">
+              <li>
+                <div class="paper-title">Keeping the Operator in Command: Human Agency and Accountability in Production Human-in-the-Loop AI Pipelines</div>
+                <span class="paper-authors">Swetha Tharvesanchi Mallikarjuna</span>
+              </li>
+              <li>
+                <div class="paper-title"><a href="https://drive.google.com/file/d/1oAnmB08tCbETG1ni9YvOLScS5UzLdaoU/view" target="_blank" rel="noopener">Who Can Stop the Machine? Institutional Authority and Meaningful Human Control in Sovereign AI</a></div>
+                <span class="paper-authors">Arthur Sidney</span>
+              </li>
+              <li>
+                <div class="paper-title"><a href="https://drive.google.com/file/d/1RWTzZ_yDb6dknu_xwnk8z5rO4ELtIqdd/view" target="_blank" rel="noopener">Information or Institution? AI&rsquo;s Role in Expert Testimony</a></div>
+                <span class="paper-authors">Shou-Ming Chang &amp; Hunter Ng</span>
+              </li>
+              <li>
+                <div class="paper-title"><a href="https://drive.google.com/file/d/15tT4FSwj1qFsFY51lw6szvfnMBtIPNjb/view" target="_blank" rel="noopener">Sovereign AI Networking: Building National AI Infrastructure Through Distributed Agent Systems</a></div>
+                <span class="paper-authors">Khushboo Rathi, Udhayachandran Shanm, Vinoth Arumugam, Kirankumar Bhusanurmath, Vineeth Kalluru, Pranav Gaidhani & Franco Romano</span>
+              </li>
+              <li>
+                <div class="paper-title"><a href="https://drive.google.com/file/d/11QcwTV3Z4wa1vWq95CVnYeN-5DUl63EN/view" target="_blank" rel="noopener">Sovereignty Through Interdependence: Epistemic Agency, Intelligent Action, and Federated AI</a></div>
+                <span class="paper-authors">Maneesh Singh, Ritwik Banerjee, Lav Varshney & Kaushik Bhatta</span>
+              </li>
+            </ul>
+          </div></div>
           <div class="schedule-item"><time class="schedule-time">11:15–11:55</time><div><div class="schedule-title"><a href="#interactive">Hacking Sovereign AI</a></div><div class="schedule-detail">Deliberative democracy with Murmi.</div></div></div>
           <div class="schedule-item"><time class="schedule-time">11:55–12:25</time><div><div class="schedule-title">Keynote Speaker: Prof. Nicholas Caputo</div><cite class="schedule-detail">Sovereignty, Alignment, and Pluralism</cite></div></div>
         <div class="schedule-item"><time class="schedule-time">12:25–12:55</time><div><div class="schedule-title">Keynote Speaker: Prof. Giordano De Marzo</div><cite class="schedule-detail">Emergent behaviours in AI agents societies</cite></div></div>
