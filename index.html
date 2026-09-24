@@ -500,31 +500,6 @@
     font-family:var(--sans);font-size:14px;font-weight:600;
     letter-spacing:-.012em;line-height:1.6;color:var(--navy);text-wrap:pretty;
   }
-  /* session host byline, credited under the prompt it frames - the white ring is
-     reserved for keynotes, so this matches the organizer roster: 96px + hairline */
-  .session-host{display:flex;align-items:center;gap:16px;margin:0;max-width:640px}
-  /* the rule spans the panel, not the text column, so it reads as a signature
-     block; the copy itself stays on the prompt paragraph's measure */
-  .prompt-field .session-host{
-    max-width:none;margin-top:30px;padding-top:26px;
-    border-top:1px solid rgba(10,36,82,.1);
-  }
-  .prompt-field .session-host .id{max-width:58ch}
-  .session-host .photo{
-    flex:none;width:96px;height:96px;border-radius:50%;
-    background:var(--navy) center/cover;
-    box-shadow:0 0 0 1px rgba(10,36,82,0.1), inset 0 0 0 2px rgba(255,255,255,0.14);
-  }
-  .session-host .id{min-width:0}
-  .session-host-label{
-    display:block;margin-bottom:5px;color:var(--faint);font-size:10.5px;
-    font-weight:550;letter-spacing:.16em;text-transform:uppercase;
-  }
-  .session-host h3{
-    font-family:var(--sans);font-size:15px;font-weight:650;
-    letter-spacing:-.008em;color:var(--navy);line-height:1.3;
-  }
-  .session-host .role{margin-top:4px;color:var(--muted);font-size:12.5px;line-height:1.55;text-wrap:pretty}
 
   .facilitator-strip{
     display:block;padding:28px 30px;background:var(--paper-alt);border-left:2px solid var(--navy);
@@ -723,9 +698,6 @@
     .session-flow p{margin-top:7px}
     .outcome-list{grid-template-columns:1fr;gap:20px;margin:24px 0 0 18px}
     .research-promise{margin-top:26px;padding:0;font-size:14px;white-space:normal;text-wrap:pretty}
-    .session-host{margin:0 0 52px;gap:13px}
-    .session-host .photo{width:76px;height:76px}
-    .session-host .role{font-size:12px}
     .facilitator-strip{padding:24px}
     .facilitator-heading{grid-template-columns:48px minmax(0,1fr);gap:14px}
     .vtaiwan-logo-panel,.newsllm-title-panel{width:48px;height:42px}
@@ -985,14 +957,6 @@
       <div class="prompt-field">
         <blockquote>What should a Sovereign AI know, and how should it respond?</blockquote>
         <p>Participants will define the public-interest questions a Sovereign AI must address, the evidence and local context its answers require, and the value conflicts those answers must keep visible.</p>
-        <div class="session-host">
-          <div class="photo" style="background-image:url('images/people/lai.jpg')"></div>
-          <div class="id">
-            <span class="session-host-label">Session host</span>
-            <h3>YouHao Lai</h3>
-            <p class="role">Deputy Director, Democratic Governance Program, Research Institute for Democracy, Society and Emerging Technology (DSET)</p>
-          </div>
-        </div>
       </div>
 
       <div class="deliberation-frame">
@@ -1120,11 +1084,10 @@
             </div>
           </div>
           <div class="organizer">
-            <div class="photo" style="background-image:url('images/people/yang.jpg')"></div>
+            <div class="photo" style="background-image:url('images/people/lai.jpg')"></div>
             <div class="id">
-              <h3>Joshua C. Yang</h3>
-              <p class="role">Postdoctoral Researcher, ETH Zurich &middot; Incoming Postdoctoral Fellow, MIT Laboratory for Information &amp; Decision Systems</p>
-              <a class="mail" href="mailto:joshyang@mit.edu">joshyang@mit.edu</a>
+              <h3>YouHao Lai</h3>
+              <p class="role">Deputy Director, Democratic Governance Program, Research Institute for Democracy, Society and Emerging Technology (DSET)</p>
             </div>
           </div>
         </div>
